@@ -1,9 +1,9 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 import { logoutAction } from "../../redux/actions/userActions";
 import { fade, makeStyles } from "@material-ui/core/styles";
-import Link from "@material-ui/core/Link";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
@@ -15,7 +15,6 @@ import MenuIcon from "@material-ui/icons/Menu";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import HomeIcon from "@material-ui/icons/Home";
 import MoreIcon from "@material-ui/icons/MoreVert";
-import MenuBookIcon from "@material-ui/icons/MenuBook";
 import { ExitToApp, ListAlt } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
@@ -123,7 +122,6 @@ const Header = ({ history }) => {
 
   // start of material ui design styling
   const classes = useStyles();
-  const preventDefault = (event) => event.preventDefault();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -171,7 +169,7 @@ const Header = ({ history }) => {
             >
               <AccountCircle />
             </IconButton>
-            <Link href="/profile" className={classes.mobileTextColor}>
+            <Link to="/profile" className={classes.mobileTextColor}>
               Profile
             </Link>
           </MenuItem>
@@ -184,7 +182,7 @@ const Header = ({ history }) => {
               <ListAlt />
             </IconButton>
 
-            <Link href="/staff/list" className={classes.mobileTextColor}>
+            <Link to="/staff/list" className={classes.mobileTextColor}>
               List Users
             </Link>
           </MenuItem>
@@ -198,7 +196,7 @@ const Header = ({ history }) => {
             </IconButton>
 
             <Link
-              href="#"
+              to="#"
               onClick={logoutHandler}
               className={classes.mobileTextColor}
             >
@@ -207,18 +205,17 @@ const Header = ({ history }) => {
           </MenuItem>
         </>
       ) : (
-        <MenuItem>
-          <IconButton aria-label="login" aria-haspopup="true" color="inherit">
-            <ExitToApp />
-          </IconButton>
+        <>
+          <MenuItem>
+            <IconButton aria-label="login" aria-haspopup="true" color="inherit">
+              <ExitToApp />
+            </IconButton>
 
-          <Link href="/login" className={classes.mobileTextColor}>
-            SignIn
-          </Link>
-          <Link href="/register" className={classes.mobileTextColor}>
-            Create Account
-          </Link>
-        </MenuItem>
+            <Link to="/login" className={classes.mobileTextColor}>
+              SignIn
+            </Link>
+          </MenuItem>
+        </>
       )}
     </Menu>
   );
@@ -234,18 +231,17 @@ const Header = ({ history }) => {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
-        <IconButton aria-label="show 4 new mails" color="inherit">
-          <HomeIcon />
-        </IconButton>
-
-        <Link href="/" className={classes.mobileTextColor}>
-          Home
-        </Link>
-      </MenuItem>
-
       {userInfo && !userInfo.isAdmin ? (
         <>
+          <MenuItem>
+            <IconButton aria-label="show 4 new mails" color="inherit">
+              <HomeIcon />
+            </IconButton>
+
+            <Link to="/" className={classes.mobileTextColor}>
+              Home
+            </Link>
+          </MenuItem>
           <MenuItem onClick={handleProfileMenuOpen}>
             <IconButton
               aria-label="account of current user"
@@ -255,7 +251,7 @@ const Header = ({ history }) => {
             >
               <AccountCircle />
             </IconButton>
-            <Link href="/profile" className={classes.mobileTextColor}>
+            <Link to="/profile" className={classes.mobileTextColor}>
               Profile
             </Link>
           </MenuItem>
@@ -268,7 +264,7 @@ const Header = ({ history }) => {
               <ListAlt />
             </IconButton>
 
-            <Link href="/staff/list" className={classes.mobileTextColor}>
+            <Link to="/staff/list" className={classes.mobileTextColor}>
               List Users
             </Link>
           </MenuItem>
@@ -282,7 +278,7 @@ const Header = ({ history }) => {
             </IconButton>
 
             <Link
-              href="#"
+              to="#"
               onClick={logoutHandler}
               className={classes.mobileTextColor}
             >
@@ -297,7 +293,7 @@ const Header = ({ history }) => {
               <ExitToApp />
             </IconButton>
 
-            <Link href="#" className={classes.mobileTextColor}>
+            <Link to="#" className={classes.mobileTextColor}>
               Admin
             </Link>
           </MenuItem>
@@ -306,7 +302,7 @@ const Header = ({ history }) => {
               <PeopleIcon />
             </IconButton>
 
-            <Link href="/admin/userList" className={classes.mobileTextColor}>
+            <Link to="/admin/userList" className={classes.mobileTextColor}>
               Users
             </Link>
           </MenuItem>
@@ -315,7 +311,7 @@ const Header = ({ history }) => {
               <PeopleIcon />
             </IconButton>
 
-            <Link href="/admin/productList" className={classes.mobileTextColor}>
+            <Link to="/admin/productList" className={classes.mobileTextColor}>
               Products
             </Link>
           </MenuItem>
@@ -324,7 +320,7 @@ const Header = ({ history }) => {
               <PeopleIcon />
             </IconButton>
 
-            <Link href="/admin/orderList" className={classes.mobileTextColor}>
+            <Link to="/admin/orderList" className={classes.mobileTextColor}>
               Orders
             </Link>
           </MenuItem>
@@ -344,7 +340,7 @@ const Header = ({ history }) => {
             <ExitToApp />
           </IconButton>
 
-          <Link href="/login" className={classes.mobileTextColor}>
+          <Link to="/login" className={classes.mobileTextColor}>
             SignIn
           </Link>
         </MenuItem>
@@ -371,15 +367,15 @@ const Header = ({ history }) => {
           <div className={classes.sectionDesktop}>
             <MenuItem>
               <Typography>
-                <Link className={classes.textColor} href="/">
-                  Home
+                <Link className={classes.textColor} to="#">
+                  About
                 </Link>
               </Typography>
             </MenuItem>
             <MenuItem>
               <Typography>
-                <Link className={classes.textColor} href="#">
-                  About
+                <Link className={classes.textColor} to="/register">
+                  Create Account
                 </Link>
               </Typography>
             </MenuItem>
@@ -392,11 +388,20 @@ const Header = ({ history }) => {
               color="inherit"
             >
               {userInfo ? (
-                <AccountCircle />
+                <>
+                  <MenuItem>
+                    <Typography>
+                      <Link className={classes.textColor} to="/">
+                        Home
+                      </Link>
+                    </Typography>
+                  </MenuItem>
+                  <AccountCircle />
+                </>
               ) : (
                 <MenuItem>
                   <Typography>
-                    <Link className={classes.textColor} href="/login">
+                    <Link className={classes.textColor} to="/login">
                       Signin
                     </Link>
                   </Typography>

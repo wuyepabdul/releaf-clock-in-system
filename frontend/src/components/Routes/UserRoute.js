@@ -5,7 +5,7 @@ import RedirectToHome from "./RedirectToHome";
 
 const UserRoute = ({ children, ...rest }) => {
   const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo, error, loading } = userLogin;
+  const { userInfo } = userLogin;
 
   return userInfo && userInfo.token ? (
     <Route {...rest} />

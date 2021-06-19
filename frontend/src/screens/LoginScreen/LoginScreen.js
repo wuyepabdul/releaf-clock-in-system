@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { loadingButton, showLoading } from "../../helpers/loading";
+import { loadingButton } from "../../helpers/loading";
 import { loginAction } from "../../redux/actions/userActions";
 import { isEmpty } from "validator";
-import { showErrorMessage } from "../../helpers/message";
 import Meta from "../../components/Meta/Meta";
 import { toast } from "react-toastify";
 import AlertError from "../../components/Alerts/AlertError";

@@ -1,7 +1,4 @@
 import React, { useEffect, useState } from "react";
-import ListClockins from "../../components/Clockin/ListClockins/ListClockins";
-import ListClockouts from "../../components/Clockin/ListClockouts/ListClockouts";
-
 import { useDispatch, useSelector } from "react-redux";
 import { loadingButton, showLoading } from "../../helpers/loading";
 import { showErrorMessage, showSuccessMessage } from "../../helpers/message";
@@ -9,9 +6,8 @@ import {
   getUserDetailsAction,
   updateUserProfileAction,
 } from "../../redux/actions/userActions";
-import { isEmail, isEmpty } from "validator";
+import { isEmpty } from "validator";
 import Meta from "../../components/Meta/Meta";
-import { toast } from "react-toastify";
 
 const ProfileScreen = ({ history }) => {
   // component state variable
@@ -21,11 +17,9 @@ const ProfileScreen = ({ history }) => {
     department: "",
     message: "",
     errorMessage: "",
-    successMessage: "",
   });
 
-  const { name, email, department, errorMessage, message, successMessage } =
-    userProfileData;
+  const { name, email, department, errorMessage } = userProfileData;
   const dispatch = useDispatch();
 
   //   redux stores state variables
@@ -38,11 +32,8 @@ const ProfileScreen = ({ history }) => {
 
   // get update date from redux store
   const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
-  const { success: updateSuccess, loading: updateLoading } = userUpdateProfile;
+  const { loading: updateLoading, success: uploadSuccess } = userUpdateProfile;
 
-  /* const orderListMy = useSelector((state) => state.orderListMy);
-  const { loading: loadingOrders, error: errorOrders, orders } = orderListMy;
- */
   useEffect(() => {
     if (!userInfo) {
       history.push("/login");
@@ -88,23 +79,24 @@ const ProfileScreen = ({ history }) => {
   };
 
   return (
-    <div className="container">
+    <div className="container-fluid">
       <Meta title={`Profile ${user.name}`} />
       <div className="mt-3 row">
+        <div className="col-md-3 mt-3"></div>
         {userLoading ? (
           showLoading()
         ) : userError ? (
           showErrorMessage(errorMessage)
         ) : (
           <>
-            <div className="col-md-4 mt-5">
-              {successMessage && showSuccessMessage(successMessage)}
+            <div className="col-md-6 mt-3">
+              {uploadSuccess && showSuccessMessage("Profile Updated")}
               <form onSubmit={submitHandler}>
                 <div className="col mb-3 ">
                   <label for="name" className="col-sm-2 col-form-label">
                     Name
                   </label>
-                  <div className="col-sm-8">
+                  <div>
                     <input
                       type="text"
                       onChange={handleChange}
@@ -120,7 +112,7 @@ const ProfileScreen = ({ history }) => {
                   <label for="email" className="col-sm-2 col-form-label">
                     Email
                   </label>
-                  <div className="col-sm-8">
+                  <div>
                     <input
                       type="email"
                       className="form-control"
@@ -134,7 +126,7 @@ const ProfileScreen = ({ history }) => {
                   <label for="department" className="col-sm-2 col-form-label">
                     Department
                   </label>
-                  <div className="col-sm-8">
+                  <div>
                     <input
                       type="text"
                       className="form-control"
@@ -147,19 +139,16 @@ const ProfileScreen = ({ history }) => {
                 {updateLoading ? (
                   loadingButton()
                 ) : (
-                  <button type="submit" className="btn btn-primary col-sm-8">
+                  <button
+                    type="submit"
+                    className="btn btn-primary form-control col-sm-8"
+                  >
                     Update Record
                   </button>
                 )}
               </form>
             </div>
-            <div className="col-md-4 mt-3">
-              <ListClockins userInfo={userInfo} />
-            </div>
-
-            <div className="col-md-4 mt-3">
-              <ListClockouts userInfo={userInfo} />
-            </div>
+            <div className="col-md-3 mt-3"></div>
           </>
         )}
       </div>

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { isEmail, isEmpty } from "validator";
 import { registerAction } from "../../redux/actions/userActions";
-import { loadingButton, showLoading } from "../../helpers/loading";
+import { loadingButton } from "../../helpers/loading";
 import Meta from "../../components/Meta/Meta";
 import { showErrorMessage } from "../../helpers/message";
 import AlertError from "../../components/Alerts/AlertError";

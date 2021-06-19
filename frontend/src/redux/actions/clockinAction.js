@@ -7,7 +7,6 @@ import {
   CLOCK_OUT_REQUEST,
   CLOCK_OUT_SUCCESS,
 } from "../constants/clockinConstants";
-import { USER_DETAILS_SUCCESS } from "../constants/userConstants";
 
 // clockin action
 export const clockinAction = (staffId) => async (dispatch, getState) => {
@@ -28,10 +27,8 @@ export const clockinAction = (staffId) => async (dispatch, getState) => {
     //send request
     const { data } = await axios.put("/api/staff/clockin", staffId, config);
     dispatch({ type: CLOCK_IN_SUCCESS, payload: data });
-    // localStorage.setItem("userInfo", JSON.stringify(data));
-    // dispatch({ type: CLOCK_IN_SUCCESS, payload: data });
+    localStorage.setItem("userInfo", JSON.stringify(data));
   } catch (error) {
-    console.log("error clckin", error);
     dispatch({
       type: CLOCK_IN_FAIL,
       payload:
@@ -60,7 +57,6 @@ export const clockoutAction = (staffId) => async (dispatch, getState) => {
 
     //send request
     const { data } = await axios.put("/api/staff/clockout", staffId, config);
-    console.log("clockout==>", data);
 
     dispatch({ type: CLOCK_OUT_SUCCESS, payload: data });
     localStorage.setItem("userInfo", JSON.stringify(data));

@@ -1,15 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./home.css";
 import Meta from "../../components/Meta/Meta";
 import GetCurrentTime from "../../components/GetCurrentTime/GetCurrentTime";
 import Clockin from "../../components/Clockin/Clockin";
 import { useSelector } from "react-redux";
 
-const HomeScreen = () => {
+const HomeScreen = ({ history }) => {
   // get logged in user info
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
+  useEffect(() => {
+    if (userInfo === null) {
+      history.push("/login");
+      window.location.reload();
+    }
+  }, [userInfo, history]);
   return (
     <div className="container  center-items">
       <Meta />

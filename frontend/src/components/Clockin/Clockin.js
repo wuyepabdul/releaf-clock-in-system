@@ -64,16 +64,16 @@ const Clockin = () => {
           <div className="col-md-8 mt-5 ">
             <form>
               {clockinSuccess && (
-                <div className="alert alert-success">{clockinSuccess}</div>
+                <div className="alert alert-success">
+                  {"You Have Clocked In for today"}
+                </div>
               )}
               {clockinError && (
-                <div className="alert alert-info">{clockinError}</div>
+                <div className="alert alert-warning">{clockinError}</div>
               )}
-              {clockoutSuccess && (
-                <div className="alert alert-success">{clockoutSuccess}</div>
-              )}
+              {clockoutSuccess && <div> {console.log("success")}</div>}
               {clockoutError && (
-                <div className="alert alert-info">{clockoutError}</div>
+                <div className="alert alert-warning">{clockoutError}</div>
               )}
               <div className=" mb-3 ">
                 <div>
