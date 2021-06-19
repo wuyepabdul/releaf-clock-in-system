@@ -1,77 +1,85 @@
 import asyncHandler from "express-async-handler";
-import slugify from "slugify";
-import bcrypt from "bcryptjs";
 import Staff from "../models/staffModel.js";
-import generateRandomNumber from "../utils/generateRandomNo.js";
+import bcrypt from "bcryptjs";
 import generateToken from "../utils/generateToken.js";
+import slugify from "slugify";
+import generateRandomNumber from "../utils/generateRandomNumber.js";
 
-// @desc authenticate staff
-export const authenticateStaff = asyncHandler(async (req, res) => {
+// @desc Auth staff and get token
+export const authStaffController = asyncHandler(async (req, res) => {
   try {
-    const staff = await Staff.findOne({ staffId: req.body.staffId });
-    const matchedPassword = await bcrypt.compare(
-      req.body.password,
-      staff.password
-    );
+    const { email, password } = req.body;
+    const staff = await Staff.findOne({ email });
 
-    // check if user exist and staffId / password matched
-    if (staff && matchedPassword) {
+    if (!staff) {
+      res.status(401).json({ message: "Invalid Email or Password" });
+      return;
+    } else {
+      const matchedPassword = await bcrypt.compare(password, staff.password);
+      if (!matchedPassword) {
+        res.status(401).json({ message: "Invalid Email or Password" });
+        return;
+      }
       res.json({
         _id: staff._id,
         staffId: staff.staffId,
         name: staff.name,
         email: staff.email,
-        age: staff.age,
         department: staff.department,
-        maritalStatus: staff.maritalStatus,
+        clockIns: staff.clockIns,
+        clockOuts: staff.clockOuts,
         isAdmin: staff.isAdmin,
         token: generateToken(staff._id),
       });
     }
   } catch (error) {
-    res.status(401).json({ message: "Invalid Credentials" });
+    console.log(error.message);
+    res.status(500).json({ message: error.message });
   }
 });
 
-// @desc Create a Staff controller
-export const createStaff = asyncHandler(async (req, res) => {
-  const { name, email, password, age, department, maritalStatus } = req.body;
-
+// @desc Register new staff
+export const registerStaffController = asyncHandler(async (req, res) => {
   try {
-    //check if staff exist
-    const slugExist = await Staff.findOne({ slug: slugify(name) });
+    const { name, email, password, department } = req.body;
     const emailExist = await Staff.findOne({ email });
 
-    if (slugExist || emailExist) {
-      res.status(400).json({ message: "Staff already exist" });
+    // check if staff is already registered
+    if (emailExist) {
+      res.status(400).json({ message: "staff already exist" });
       return;
     }
-    // create new staff
-    const hashedPassword = bcrypt.hashSync(password, 10);
-    const staff = await new Staff({
+    // hash password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    //create and save new Staff
+    const staff = new Staff({
       staffId: generateRandomNumber(name),
       name,
       slug: slugify(name),
       email,
       password: hashedPassword,
-      age,
       department,
-      maritalStatus,
-    }).save();
-    // send back json
-    res.json({
-      _id: staff._id,
-      staffId: staff.staffId,
-      name: staff.name,
-      email: staff.email,
-      age: staff.age,
-      department: staff.department,
-      maritalStatus: staff.maritalStatus,
-      isAdmin: staff.isAdmin,
-      token: generateToken(staff._id),
     });
+    const savedstaff = await staff.save();
+
+    if (savedstaff) {
+      res.status(201).json({
+        _id: staff._id,
+        staffId: staff.staffId,
+        name: staff.name,
+        slug: staff.slug,
+        email: staff.email,
+        department: staff.department,
+        clockIns: staff.clockIns,
+        clockOuts: staff.clockOuts,
+        isAdmin: staff.isAdmin,
+        token: generateToken(staff._id),
+      });
+    }
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "Server error" });
+    console.log(error.message);
+    res.status(400).json({ message: "Invalid staff Data" });
   }
 });

@@ -1,7 +1,9 @@
 import jwt from "jsonwebtoken";
+import asyncHandler from "express-async-handler";
 import Staff from "../models/staffModel.js";
 
-export const protect = async (req, res, next) => {
+/* protect a route */
+export const protect = asyncHandler(async (req, res, next) => {
   let token;
   if (
     req.headers.authorization &&
@@ -12,7 +14,7 @@ export const protect = async (req, res, next) => {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
       if (decoded) {
-        req.user = await Staff.findById(decoded.id);
+        req.user = await Staff.findById(decoded.id).select("-password");
       } else {
         res.status(400).json({ message: "Invalid token" });
       }
@@ -26,15 +28,13 @@ export const protect = async (req, res, next) => {
   if (!token) {
     res.status(401).json({ message: "Access Denied: No token" });
   }
-};
+});
 
-// admin check middleware
+// admin middleware
 export const isAdmin = (req, res, next) => {
   if (req.user && req.user.isAdmin) {
     next();
   } else {
-    res
-      .status(401)
-      .json({ message: "Access Denied: Not authorized as an Admin" });
+    res.status(401).json({ message: "Access Denied" });
   }
 };

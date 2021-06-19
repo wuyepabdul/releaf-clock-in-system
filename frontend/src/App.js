@@ -1,37 +1,30 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom";
+import { BrowserRouter, Route } from "react-router-dom";
+import Footer from "./components/Footer/Footer";
+import Header from "./components/Header/Header";
+import HomeScreen from "./screens/HomeScreen/HomeScreen";
+import LoginScreen from "./screens/LoginScreen/LoginScreen";
+import RegisterScreen from "./screens/RegisterScreen/RegisterScreen";
+import ProfileScreen from "./screens/ProfileScreen/ProfileScreen";
+import UserListScreen from "./screens/UserListScreen/UserListScreen";
+import UserRoute from "./components/Routes/UserRoute";
 import { ToastContainer } from "react-toastify";
-import { Toaster } from "react-hot-toast";
-
-import HomePage from "./screens/HomePage";
-import Header from "./components/nav/Header";
-import Login from "./screens/auth/Login";
-import Register from "./screens/auth/Register";
+import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
   return (
-    <>
+    <BrowserRouter>
       <Header />
-      <ToastContainer
-        position="top-center"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />{" "}
-      <Toaster />
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/register" component={Register} />
-        <Route exact path="/" component={HomePage} />
-        <Route exact path="/" component={HomePage} />
-      </Switch>
-    </>
+      <ToastContainer />
+      <main>
+        <UserRoute exact path="/" component={HomeScreen} />
+        <Route exact path="/login" component={LoginScreen} />
+        <Route exact path="/register" component={RegisterScreen} />
+        <UserRoute exact path="/profile" component={ProfileScreen} />
+        <UserRoute exact path="/staff/list" component={UserListScreen} />
+      </main>
+      <Footer />
+    </BrowserRouter>
   );
 };
 

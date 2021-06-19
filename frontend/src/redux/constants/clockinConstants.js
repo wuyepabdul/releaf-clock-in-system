@@ -1,0 +1,9 @@
+export const CLOCK_IN_REQUEST = "CLOCK_IN_REQUEST";
+export const CLOCK_IN_SUCCESS = "CLOCK_IN_SUCCESS";
+export const CLOCK_IN_FAIL = "CLOCK_IN_FAIL";
+
+export const CLOCK_OUT_REQUEST = "CLOCK_OUT_REQUEST";
+export const CLOCK_OUT_SUCCESS = "CLOCK_OUT_SUCCESS";
+export const CLOCK_OUT_FAIL = "CLOCK_OUT_FAIL";
+
+export const CLOCK_IN_RESET = "CLOCK_IN_RESET";

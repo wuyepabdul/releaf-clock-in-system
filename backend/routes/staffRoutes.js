@@ -1,24 +1,60 @@
 import express from "express";
+
 import {
-  deleteStaff,
-  getSingleStaff,
-  listAllStaff,
-  updateStaff,
+  authStaffController,
+  registerStaffController,
+} from "../controllers/authController.js";
+import {
+  clockInStaff,
+  clockOutStaff,
+  getAllStaffController,
+  getStaffProfileController,
+  updateStaffProfileController,
 } from "../controllers/staffController.js";
 import { isAdmin, protect } from "../middlewares/authMiddleware.js";
+import {
+  signinValidator,
+  validatorResult,
+  updateProfileValidator,
+  registerValidator,
+} from "../middlewares/validator.js";
 
 const router = express.Router();
 
-//list a staff route
-router.get("/", listAllStaff);
+//register a user route
+//public
+router.post(
+  "/register",
+  registerValidator,
+  validatorResult,
+  registerStaffController
+);
 
-//get staff by slug route
-router.get("/:slug", getSingleStaff);
+// login a user route
+//public
+router.post("/login", signinValidator, validatorResult, authStaffController);
 
-//update a staff route
-router.put("/:slug", protect, updateStaff);
+// get user profile route
+// private
+router.get("/profile", protect, getStaffProfileController);
 
-// delete a staff route
-router.delete("/:slug", protect, isAdmin, deleteStaff);
+// get all staff route
+router.get("/list", protect, getAllStaffController);
+
+//update user profile route
+//private
+router.put(
+  "/profile",
+  protect,
+  updateProfileValidator,
+  validatorResult,
+  updateStaffProfileController
+);
+
+// update a user by id route
+router.put("/clockin", protect, clockInStaff);
+
+// update a user by id route
+router.put("/clockout", protect, clockOutStaff);
 
 export default router;
