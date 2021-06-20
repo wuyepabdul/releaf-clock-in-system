@@ -4,8 +4,11 @@ import Meta from "../../components/Meta/Meta";
 import GetCurrentTime from "../../components/GetCurrentTime/GetCurrentTime";
 import Clockin from "../../components/Clockin/Clockin";
 import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
-const HomeScreen = ({ history }) => {
+const HomeScreen = () => {
+  const history = useHistory();
+
   // get logged in user info
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -13,7 +16,6 @@ const HomeScreen = ({ history }) => {
   useEffect(() => {
     if (userInfo === null) {
       history.push("/login");
-      window.location.reload();
     }
   }, [userInfo, history]);
   return (

@@ -17,6 +17,7 @@ import {
   USER_LIST_SUCCESS,
   USER_LIST_FAIL,
   USER_LIST_RESET,
+  USER_REGISTER_RESET,
 } from "../constants/userConstants";
 
 //user register reducer
@@ -25,9 +26,15 @@ export const userRegisterReducer = (state = {}, action) => {
     case USER_REGISTER_REQUEST:
       return { loading: true };
     case USER_REGISTER_SUCCESS:
-      return { loading: false, userInfo: action.payload };
+      return {
+        loading: false,
+        userInfo: action.payload,
+        success: "Account created Successfully",
+      };
     case USER_REGISTER_FAIL:
       return { loading: false, error: action.payload };
+    case USER_REGISTER_RESET:
+      return state;
     default:
       return state;
   }

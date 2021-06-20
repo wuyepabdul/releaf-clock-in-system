@@ -16,6 +16,7 @@ import {
   USER_LOGOUT,
   USER_REGISTER_FAIL,
   USER_REGISTER_REQUEST,
+  USER_REGISTER_RESET,
   USER_REGISTER_SUCCESS,
   USER_UPDATE_PROFILE_FAIL,
   USER_UPDATE_PROFILE_REQUEST,
@@ -195,4 +196,5 @@ export const logoutAction = () => (dispatch) => {
   dispatch({ type: USER_DETAILS_RESET });
   dispatch({ type: USER_LIST_RESET });
   dispatch({ type: CLOCK_IN_RESET });
+  dispatch({ type: USER_REGISTER_RESET });
 };

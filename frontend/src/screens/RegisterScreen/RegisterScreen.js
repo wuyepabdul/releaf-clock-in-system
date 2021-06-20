@@ -5,8 +5,8 @@ import { isEmail, isEmpty } from "validator";
 import { registerAction } from "../../redux/actions/userActions";
 import { loadingButton } from "../../helpers/loading";
 import Meta from "../../components/Meta/Meta";
+import { USER_REGISTER_RESET } from "../../redux/constants/userConstants";
 import { showErrorMessage } from "../../helpers/message";
-import AlertError from "../../components/Alerts/AlertError";
 
 const RegisterScreen = ({ history }) => {
   const [name, setName] = useState("");
@@ -21,11 +21,13 @@ const RegisterScreen = ({ history }) => {
   const { error, loading, userInfo } = userRegister;
 
   useEffect(() => {
+    dispatch({ type: USER_REGISTER_RESET });
     //check for loggedIn user
     if (userInfo) {
       history.push("/");
+      console.log("userInfo", userInfo);
     }
-  }, [history, userInfo]);
+  }, [history, dispatch, userInfo]);
 
   //submit handler
   const submitHandler = (e) => {
@@ -56,8 +58,8 @@ const RegisterScreen = ({ history }) => {
       <div>
         <div className="row  h-80 d-flex justify-content-center align-items-center">
           <div className="col-md-6 mt-3 ">
+            {error && showErrorMessage(error)}{" "}
             {message && showErrorMessage(message)}
-            {error && <AlertError alertMessage={error} />}
             <form onSubmit={submitHandler}>
               <div className="col mb-3 ">
                 <label for="name" className=" form-label">

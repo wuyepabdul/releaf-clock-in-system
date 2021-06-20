@@ -55,7 +55,7 @@ export const registerStaffController = asyncHandler(async (req, res) => {
 
     //create and save new Staff
     const staff = new Staff({
-      staffId: generateRandomNumber(name),
+      staffId: generateRandomNumber(name.split(" ")[0]),
       name,
       slug: slugify(name),
       email,

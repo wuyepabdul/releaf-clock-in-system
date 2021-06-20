@@ -6,7 +6,8 @@ import {
   clockoutAction,
 } from "../../redux/actions/clockinAction";
 import { useHistory } from "react-router-dom";
-
+import AlertError from "../../components/Alerts/AlertError";
+import AlertSuccess from "../../components/Alerts/AlertSuccess";
 const Clockin = () => {
   // get history
   const history = useHistory();
@@ -23,7 +24,7 @@ const Clockin = () => {
   const {
     loading: clockinLoading,
     error: clockinError,
-    clockin: clockinSuccess,
+    success: clockinSuccess,
   } = staffClockin;
 
   //get user clockin action
@@ -31,7 +32,7 @@ const Clockin = () => {
   const {
     loading: clockoutLoading,
     error: clockoutError,
-    clockout: clockoutSuccess,
+    success: clockoutSuccess,
   } = staffClockout;
 
   // check if user is loggedIn on component mount
@@ -63,18 +64,12 @@ const Clockin = () => {
         <div className="row  h-80 d-flex justify-content-center align-items-center">
           <div className="col-md-8 mt-5 ">
             <form>
-              {clockinSuccess && (
-                <div className="alert alert-success">
-                  {"You Have Clocked In for today"}
-                </div>
+              {clockinSuccess && <AlertSuccess alertMessage={clockinSuccess} />}
+              {clockinError && <AlertError alertMessage={clockinError} />}
+              {clockoutSuccess && (
+                <AlertSuccess alertMessage={clockoutSuccess} />
               )}
-              {clockinError && (
-                <div className="alert alert-warning">{clockinError}</div>
-              )}
-              {clockoutSuccess && <div> {console.log("success")}</div>}
-              {clockoutError && (
-                <div className="alert alert-warning">{clockoutError}</div>
-              )}
+              {clockoutError && <AlertError alertMessage={clockoutError} />}
               <div className=" mb-3 ">
                 <div>
                   <input

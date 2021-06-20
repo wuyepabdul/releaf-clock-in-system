@@ -52,7 +52,8 @@ export const updateStaffProfileController = asyncHandler(async (req, res) => {
     //check if staff exist
     if (staff) {
       staff.name = req.body.name || staff.name;
-      staff.staffId = generateRandomNumber(req.body.name) || staff.staffId;
+      staff.staffId =
+        generateRandomNumber(req.body.name.split(" ")[0]) || staff.staffId;
       staff.email = req.body.email || staff.email;
       staff.department = req.body.department || staff.department;
 

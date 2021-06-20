@@ -13,7 +13,11 @@ export const staffClockinReducer = (state = [], action) => {
     case CLOCK_IN_REQUEST:
       return { loading: true };
     case CLOCK_IN_SUCCESS:
-      return { loading: false, clockin: action.payload, success: true };
+      return {
+        loading: false,
+        clockin: action.payload,
+        success: "Clocked In Successfully ",
+      };
     case CLOCK_IN_FAIL:
       return { loading: false, error: action.payload };
     case CLOCK_IN_RESET:
@@ -28,7 +32,11 @@ export const staffClockoutReducer = (state = [], action) => {
     case CLOCK_OUT_REQUEST:
       return { loading: true };
     case CLOCK_OUT_SUCCESS:
-      return { loading: false, clockin: action.payload, success: true };
+      return {
+        loading: false,
+        clockin: action.payload,
+        success: "Clocked Out successfully ",
+      };
     case CLOCK_OUT_FAIL:
       return { loading: false, error: action.payload };
     case CLOCK_IN_RESET:

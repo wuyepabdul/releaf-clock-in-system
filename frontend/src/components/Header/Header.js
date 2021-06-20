@@ -16,6 +16,7 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import HomeIcon from "@material-ui/icons/Home";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import { ExitToApp, ListAlt } from "@material-ui/icons";
+import { Fragment } from "react";
 
 const useStyles = makeStyles((theme) => ({
   textColor: {
@@ -159,7 +160,7 @@ const Header = ({ history }) => {
       onClose={handleMenuClose}
     >
       {userInfo && !userInfo.isAdmin ? (
-        <>
+        <div>
           <MenuItem onClick={handleProfileMenuOpen}>
             <IconButton
               aria-label="account of current user"
@@ -187,11 +188,7 @@ const Header = ({ history }) => {
             </Link>
           </MenuItem>
           <MenuItem>
-            <IconButton
-              aria-label="logout"
-              aria-haspopup="true"
-              color="inherit"
-            >
+            <IconButton aria-label="logout" color="inherit">
               <ExitToApp />
             </IconButton>
 
@@ -203,9 +200,9 @@ const Header = ({ history }) => {
               Logout
             </Link>
           </MenuItem>
-        </>
+        </div>
       ) : (
-        <>
+        <Fragment>
           <MenuItem>
             <IconButton aria-label="login" aria-haspopup="true" color="inherit">
               <ExitToApp />
@@ -215,7 +212,7 @@ const Header = ({ history }) => {
               SignIn
             </Link>
           </MenuItem>
-        </>
+        </Fragment>
       )}
     </Menu>
   );
@@ -232,7 +229,7 @@ const Header = ({ history }) => {
       onClose={handleMobileMenuClose}
     >
       {userInfo && !userInfo.isAdmin ? (
-        <>
+        <Fragment>
           <MenuItem>
             <IconButton aria-label="show 4 new mails" color="inherit">
               <HomeIcon />
@@ -269,23 +266,19 @@ const Header = ({ history }) => {
             </Link>
           </MenuItem>
           <MenuItem>
-            <IconButton
-              aria-label="logout"
-              aria-haspopup="true"
-              color="inherit"
-            >
+            <IconButton aria-label="logout" color="inherit">
               <ExitToApp />
             </IconButton>
 
             <Link
-              to="#"
+              to="/login"
               onClick={logoutHandler}
               className={classes.mobileTextColor}
             >
               Logout
             </Link>
           </MenuItem>
-        </>
+        </Fragment>
       ) : userInfo && userInfo.isAdmin ? (
         <>
           <MenuItem>
@@ -325,7 +318,7 @@ const Header = ({ history }) => {
             </Link>
           </MenuItem>
           <MenuItem>
-            <IconButton aria-label="login" aria-haspopup="true" color="inherit">
+            <IconButton aria-label="login" color="inherit">
               <ExitToApp />
             </IconButton>
 
@@ -335,15 +328,30 @@ const Header = ({ history }) => {
           </MenuItem>
         </>
       ) : (
-        <MenuItem>
-          <IconButton aria-label="login" aria-haspopup="true" color="inherit">
-            <ExitToApp />
-          </IconButton>
+        <Fragment>
+          <MenuItem>
+            <IconButton
+              aria-label="register"
+              aria-haspopup="true"
+              color="inherit"
+            >
+              <ExitToApp />
+            </IconButton>
 
-          <Link to="/login" className={classes.mobileTextColor}>
-            SignIn
-          </Link>
-        </MenuItem>
+            <Link to="/register" className={classes.mobileTextColor}>
+              Create Account
+            </Link>
+          </MenuItem>
+          <MenuItem>
+            <IconButton aria-label="login" aria-haspopup="true" color="inherit">
+              <ExitToApp />
+            </IconButton>
+
+            <Link to="/login" className={classes.mobileTextColor}>
+              SignIn
+            </Link>
+          </MenuItem>
+        </Fragment>
       )}
     </Menu>
   );
