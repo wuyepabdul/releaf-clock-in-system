@@ -2,7 +2,6 @@ import jwt from "jsonwebtoken";
 import asyncHandler from "express-async-handler";
 import Staff from "../models/staffModel.js";
 
-/* protect a route */
 export const protect = asyncHandler(async (req, res, next) => {
   let token;
   if (
@@ -30,7 +29,6 @@ export const protect = asyncHandler(async (req, res, next) => {
   }
 });
 
-// admin middleware
 export const isAdmin = (req, res, next) => {
   if (req.user && req.user.isAdmin) {
     next();

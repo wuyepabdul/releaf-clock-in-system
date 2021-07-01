@@ -10,27 +10,24 @@ import { isEmpty } from "validator";
 import Meta from "../../components/Meta/Meta";
 
 const ProfileScreen = ({ history }) => {
-  // component state variable
   const [userProfileData, setUserProfileData] = useState({
     name: "",
     email: "",
     department: "",
+    staffId: "",
     message: "",
     errorMessage: "",
   });
 
-  const { name, email, department, errorMessage } = userProfileData;
+  const { name, email, department, staffId, errorMessage } = userProfileData;
   const dispatch = useDispatch();
 
-  //   redux stores state variables
   const userDetails = useSelector((state) => state.userDetails);
   const { error: userError, loading: userLoading, user } = userDetails;
 
-  // get logged in user info
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
-  // get update date from redux store
   const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
   const { loading: updateLoading, success: uploadSuccess } = userUpdateProfile;
 
@@ -45,12 +42,12 @@ const ProfileScreen = ({ history }) => {
           name: user.name,
           email: user.email,
           department: user.department,
+          staffId: user.staffId,
         });
       }
     }
   }, [dispatch, history, userInfo, user]);
 
-  // event change handler
   const handleChange = (e) => {
     setUserProfileData({
       ...userProfileData,
@@ -61,25 +58,23 @@ const ProfileScreen = ({ history }) => {
     });
   };
 
-  // submit handler
   const submitHandler = (e) => {
     e.preventDefault();
 
     const userData = { id: user._id, name };
-    // validate data
     if (isEmpty(name)) {
       setUserProfileData({
         ...userProfileData,
         errorMessage: "Name cannot be empty",
       });
     } else {
-      // dispatch update action
       dispatch(updateUserProfileAction(userData));
     }
   };
 
   return (
     <div className="container-fluid">
+      {console.log("user", user)}
       <Meta title={`Profile ${user.name}`} />
       <div className="mt-3 row">
         <div className="col-md-3 mt-3"></div>
@@ -107,7 +102,20 @@ const ProfileScreen = ({ history }) => {
                     />
                   </div>
                 </div>
-
+                <div className="col mb-3 ">
+                  <label for="staffId" className="col-sm-2 col-form-label">
+                    Staff ID
+                  </label>
+                  <div>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="staffId"
+                      value={staffId}
+                      disabled
+                    />
+                  </div>
+                </div>
                 <div className="col mb-3 ">
                   <label for="email" className="col-sm-2 col-form-label">
                     Email
@@ -122,6 +130,7 @@ const ProfileScreen = ({ history }) => {
                     />
                   </div>
                 </div>
+
                 <div className="col mb-3 ">
                   <label for="department" className="col-sm-2 col-form-label">
                     Department

@@ -11,7 +11,6 @@ import {
 
 const router = express.Router();
 
-//register a user route
 router.post(
   "/register",
   registerValidator,
@@ -19,7 +18,6 @@ router.post(
   registerStaffController
 );
 
-// login a user route
 router.post("/login", signinValidator, validatorResult, authStaffController);
 
 export default router;

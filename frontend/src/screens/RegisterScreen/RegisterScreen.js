@@ -22,19 +22,16 @@ const RegisterScreen = ({ history }) => {
 
   useEffect(() => {
     dispatch({ type: USER_REGISTER_RESET });
-    //check for loggedIn user
     if (userInfo) {
       history.push("/");
       console.log("userInfo", userInfo);
     }
   }, [history, dispatch, userInfo]);
 
-  //submit handler
   const submitHandler = (e) => {
     e.preventDefault();
 
     const userData = { name, email, password, department };
-    //validate form data
     if (
       isEmpty(name) ||
       isEmpty(password) ||
@@ -45,7 +42,6 @@ const RegisterScreen = ({ history }) => {
     } else if (!isEmail(email)) {
       setMessage("Please provide a valid email");
     } else {
-      // dispatch register action
       dispatch(registerAction(userData));
     }
   };

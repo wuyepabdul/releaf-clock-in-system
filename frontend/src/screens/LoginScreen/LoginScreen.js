@@ -9,13 +9,10 @@ import { toast } from "react-toastify";
 import AlertError from "../../components/Alerts/AlertError";
 
 const LoginScreen = ({ history }) => {
-  // component variables
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const dispatch = useDispatch();
-
-  // userInfo from redux store
   const userLogin = useSelector((state) => state.userLogin);
   const { error, loading, userInfo } = userLogin;
 
@@ -25,12 +22,10 @@ const LoginScreen = ({ history }) => {
     }
   }, [history, userInfo]);
 
-  //submit handler to login staff
   const submitHandler = (e) => {
     e.preventDefault();
 
     const userData = { email, password };
-    // validate form data
     if (isEmpty(email) || isEmpty(password)) {
       toast.error("All fields are required");
     } else {

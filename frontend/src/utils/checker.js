@@ -1,8 +1,7 @@
-const checker = (arr, todayDate) => {
+const clockinChecker = (clockinsArray, todayDate) => {
   todayDate = new Date();
 
-  // find clockin time if user is clockedIn
-  arr.find((c) => {
+  clockinsArray.find((c) => {
     c.createdAt = new Date(c.createdAt);
     if (
       c.createdAt.getDay() === todayDate.getDay() &&
@@ -17,4 +16,4 @@ const checker = (arr, todayDate) => {
   });
 };
 
-export default checker;
+export default clockinChecker;

@@ -1,5 +1,4 @@
 import express from "express";
-
 import {
   authStaffController,
   registerStaffController,
@@ -21,8 +20,6 @@ import {
 
 const router = express.Router();
 
-//register a user route
-//public
 router.post(
   "/register",
   registerValidator,
@@ -30,19 +27,12 @@ router.post(
   registerStaffController
 );
 
-// login a user route
-//public
 router.post("/login", signinValidator, validatorResult, authStaffController);
 
-// get user profile route
-// private
 router.get("/profile", protect, getStaffProfileController);
 
-// get all staff route
 router.get("/list", protect, getAllStaffController);
 
-//update user profile route
-//private
 router.put(
   "/profile",
   protect,
@@ -51,10 +41,8 @@ router.put(
   updateStaffProfileController
 );
 
-// update a user by id route
 router.put("/clockin", protect, clockInStaff);
 
-// update a user by id route
 router.put("/clockout", protect, clockOutStaff);
 
 export default router;

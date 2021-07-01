@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 const { ObjectId } = mongoose.Schema.Types;
 
-//clockin schema
 const clockinSchema = new mongoose.Schema(
   {
     clockedInAt: { type: Date },
@@ -10,7 +9,6 @@ const clockinSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-//clockout schema
 const clockoutSchema = new mongoose.Schema(
   {
     clockedOutAt: { type: Date },
@@ -19,7 +17,6 @@ const clockoutSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// staff schema
 const staffSchema = new mongoose.Schema(
   {
     staffId: { type: String, required: true, unique: true },

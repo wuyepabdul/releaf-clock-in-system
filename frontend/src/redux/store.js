@@ -24,20 +24,16 @@ const reducers = combineReducers({
   staffClockout: staffClockoutReducer,
 });
 
-// set default user state in local storage and redux store
 const userInfoFromLocalStorage = localStorage.getItem("userInfo")
   ? JSON.parse(localStorage.getItem("userInfo"))
   : null;
 
-// redux initial state
 const initialState = {
   userLogin: { userInfo: userInfoFromLocalStorage },
 };
 
-// redux middleware
 const middlewares = [thunk];
 
-//create store
 const store = createStore(
   reducers,
   initialState,

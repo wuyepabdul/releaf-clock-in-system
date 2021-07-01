@@ -15,9 +15,6 @@ const importData = async () => {
 
     console.log("DataImported:".green.inverse);
 
-    // set admin user in staffs
-    //return {  staff: adminUser };
-
     process.exit();
   } catch (error) {
     console.log(`Data Import error: ${error.message}`.red.inverse);

@@ -20,7 +20,6 @@ import {
   USER_REGISTER_RESET,
 } from "../constants/userConstants";
 
-//user register reducer
 export const userRegisterReducer = (state = {}, action) => {
   switch (action.type) {
     case USER_REGISTER_REQUEST:
@@ -40,7 +39,6 @@ export const userRegisterReducer = (state = {}, action) => {
   }
 };
 
-// user login reducer
 export const userLoginReducer = (state = {}, action) => {
   switch (action.type) {
     case USER_LOGIN_REQUEST:
@@ -56,7 +54,6 @@ export const userLoginReducer = (state = {}, action) => {
   }
 };
 
-// user details reducer
 export const userDetailsReducer = (state = { user: {} }, action) => {
   switch (action.type) {
     case USER_DETAILS_REQUEST:
@@ -72,7 +69,6 @@ export const userDetailsReducer = (state = { user: {} }, action) => {
   }
 };
 
-// update user profile reducer
 export const userUpdateProfileReducer = (state = {}, action) => {
   switch (action.type) {
     case USER_UPDATE_PROFILE_REQUEST:
@@ -86,7 +82,6 @@ export const userUpdateProfileReducer = (state = {}, action) => {
   }
 };
 
-// list all users reducer
 export const userListReducer = (state = { users: [] }, action) => {
   switch (action.type) {
     case USER_LIST_REQUEST:

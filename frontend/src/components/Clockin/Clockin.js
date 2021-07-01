@@ -9,17 +9,13 @@ import { useHistory } from "react-router-dom";
 import AlertError from "../../components/Alerts/AlertError";
 import AlertSuccess from "../../components/Alerts/AlertSuccess";
 const Clockin = () => {
-  // get history
   const history = useHistory();
 
-  // for dispatch action to redux store
   const dispatch = useDispatch();
 
-  // get loggedIn user info
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
-  //get user clockin action
   const staffClockin = useSelector((state) => state.staffClockin);
   const {
     loading: clockinLoading,
@@ -27,7 +23,6 @@ const Clockin = () => {
     success: clockinSuccess,
   } = staffClockin;
 
-  //get user clockin action
   const staffClockout = useSelector((state) => state.staffClockout);
   const {
     loading: clockoutLoading,
@@ -35,28 +30,23 @@ const Clockin = () => {
     success: clockoutSuccess,
   } = staffClockout;
 
-  // check if user is loggedIn on component mount
   useEffect(() => {
     if (!userInfo) {
       history.push("/login");
     }
   }, [history, userInfo]);
 
-  // handle clockin handler
   const handleClockin = (e) => {
     e.preventDefault();
     const staffId = { staffId: userInfo.staffId };
     dispatch(clockinAction(staffId));
   };
 
-  // handle clockout handler
   const handleClockout = (e) => {
     e.preventDefault();
     const staffId = { staffId: userInfo.staffId };
     dispatch(clockoutAction(staffId));
   };
-
-  //
 
   return (
     <div className="container">
@@ -72,13 +62,15 @@ const Clockin = () => {
               {clockoutError && <AlertError alertMessage={clockoutError} />}
               <div className=" mb-3 ">
                 <div>
+                  <label for="staffId" className=" form-label">
+                    Staff ID
+                  </label>
                   <input
                     type="text"
                     name="staffId"
                     id="staffId"
                     className="form-control"
                     value={userInfo.staffId}
-                    readOnly
                   />
                 </div>
               </div>

@@ -3,34 +3,32 @@ import Staff from "../models/staffModel.js";
 import generateRandomNumber from "../utils/generateRandomNumber.js";
 import generateToken from "../utils/generateToken.js";
 
-// @desc Get all staff
-// @route GET /api/staff/list
-// @access Protected
 export const getAllStaffController = asyncHandler(async (req, res) => {
   try {
     const staff = await Staff.find({})
       .select("-password")
       .sort({ createdAt: -1 });
+
     if (staff) {
       res.json(staff);
     } else {
       res.status(404).json({ message: "No staff found" });
     }
   } catch (error) {
-    // handle error
     res.status(500).json({ message: "Server error, try again later" });
   }
 });
 
-// @desc Get staff profile
 export const getStaffProfileController = asyncHandler(async (req, res) => {
   try {
     const staff = await Staff.findById(req.user._id);
+
     if (staff) {
       res.json({
         _id: staff._id,
         name: staff.name,
         email: staff.email,
+        staffId: staff.staffId,
         department: staff.department,
         isAdmin: staff.isAdmin,
       });
@@ -42,14 +40,10 @@ export const getStaffProfileController = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc update staff profile
-// @route PUT /api/staffs/profile
-// @access Private
 export const updateStaffProfileController = asyncHandler(async (req, res) => {
   try {
     const staff = await Staff.findById(req.user._id);
 
-    //check if staff exist
     if (staff) {
       staff.name = req.body.name || staff.name;
       staff.staffId =
@@ -57,10 +51,7 @@ export const updateStaffProfileController = asyncHandler(async (req, res) => {
       staff.email = req.body.email || staff.email;
       staff.department = req.body.department || staff.department;
 
-      //  save updated staff details
       const updatedStaff = await staff.save();
-
-      //send back updated staff details
       res.status(201).json({
         _id: updatedStaff._id,
         staffId: updatedStaff.staffId,
@@ -82,14 +73,12 @@ export const updateStaffProfileController = asyncHandler(async (req, res) => {
   }
 });
 
-// clockin a staff
 export const clockInStaff = asyncHandler(async (req, res) => {
   try {
     const { staffId } = req.body;
     const currentTime = new Date();
-
-    //find and check if staff exist
     const staff = await Staff.findOne({ staffId });
+
     if (staff) {
       const alreadyClockedIn = staff.clockIns.find(
         (c) =>
@@ -97,7 +86,6 @@ export const clockInStaff = asyncHandler(async (req, res) => {
           currentTime.getDate().toString()
       );
 
-      //check if already clocked in
       if (alreadyClockedIn) {
         res
           .status(400)
@@ -108,11 +96,9 @@ export const clockInStaff = asyncHandler(async (req, res) => {
           staff: req.user._id,
         };
 
-        // push clockIn to list of clockIns
         staff.clockIns.push(clockIn);
-
-        //save updated staff info
         await staff.save();
+
         res.status(201).json({
           _id: staff._id,
           staffId: staff.staffId,
@@ -135,14 +121,12 @@ export const clockInStaff = asyncHandler(async (req, res) => {
   }
 });
 
-// clockout a staff
 export const clockOutStaff = asyncHandler(async (req, res) => {
   try {
     const { staffId } = req.body;
     const currentTime = new Date();
-
-    //find and check if staff exist
     const staff = await Staff.findOne({ staffId });
+
     if (staff) {
       const alreadyClockedOut = staff.clockOuts.find(
         (c) =>
@@ -150,7 +134,6 @@ export const clockOutStaff = asyncHandler(async (req, res) => {
           currentTime.getDate().toString()
       );
 
-      //check if already clocked in
       if (alreadyClockedOut) {
         res
           .status(400)
@@ -161,10 +144,7 @@ export const clockOutStaff = asyncHandler(async (req, res) => {
           staff: req.user._id,
         };
 
-        // push clockout to list of clockouts
         staff.clockOuts.push(clockOut);
-
-        //save updated staff info
         await staff.save();
         res.status(201).json({
           _id: staff._id,

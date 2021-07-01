@@ -1,6 +1,5 @@
 import Cookies from "js-cookie";
 
-/* store user token in cookie */
 export const setCookie = (key, value) => {
   Cookies.set(key, value, { expires: 1 });
 };

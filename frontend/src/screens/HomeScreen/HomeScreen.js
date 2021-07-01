@@ -9,7 +9,6 @@ import { useHistory } from "react-router-dom";
 const HomeScreen = () => {
   const history = useHistory();
 
-  // get logged in user info
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 

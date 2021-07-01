@@ -86,7 +86,7 @@ const useStyles = makeStyles((theme) => ({
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
+
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
     transition: theme.transitions.create("width"),
     width: "100%",
@@ -111,17 +111,14 @@ const useStyles = makeStyles((theme) => ({
 const Header = ({ history }) => {
   const dispatch = useDispatch();
 
-  // get loggedIn user from store
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
-  // logout handler
   const logoutHandler = () => {
     dispatch(logoutAction());
     history.push("/login");
   };
 
-  // start of material ui design styling
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -147,7 +144,6 @@ const Header = ({ history }) => {
   };
 
   const menuId = "primary-search-account-menu";
-  // end of material design styling
 
   const renderMenu = (
     <Menu

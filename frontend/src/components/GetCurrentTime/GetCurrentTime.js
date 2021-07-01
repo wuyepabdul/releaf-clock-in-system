@@ -3,7 +3,6 @@ import { withRouter } from "react-router-dom";
 import getCurrentTime from "../../utils/timer";
 
 const GetCurrentTime = ({ history }) => {
-  // component states
   const [time, setTime] = useState({
     hour: 0,
     minute: 0,
@@ -13,7 +12,7 @@ const GetCurrentTime = ({ history }) => {
 
   useEffect(() => {
     const now = getCurrentTime();
-    //set cuurent time
+
     const interval = setInterval(() => {
       setTime({
         ...time,
@@ -24,7 +23,6 @@ const GetCurrentTime = ({ history }) => {
       });
     }, [1000]);
 
-    // cleanup
     return () => clearInterval(interval);
   }, [time]);
 

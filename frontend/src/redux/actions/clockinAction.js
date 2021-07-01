@@ -8,7 +8,6 @@ import {
   CLOCK_OUT_SUCCESS,
 } from "../constants/clockinConstants";
 
-// clockin action
 export const clockinAction = (staffId) => async (dispatch, getState) => {
   try {
     dispatch({ type: CLOCK_IN_REQUEST });
@@ -16,7 +15,6 @@ export const clockinAction = (staffId) => async (dispatch, getState) => {
       userLogin: { userInfo },
     } = getState();
 
-    // set headers
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -24,7 +22,6 @@ export const clockinAction = (staffId) => async (dispatch, getState) => {
       },
     };
 
-    //send request
     const { data } = await axios.put("/api/staff/clockin", staffId, config);
     dispatch({ type: CLOCK_IN_SUCCESS, payload: data });
     localStorage.setItem("userInfo", JSON.stringify(data));
@@ -39,7 +36,6 @@ export const clockinAction = (staffId) => async (dispatch, getState) => {
   }
 };
 
-// staff clout action
 export const clockoutAction = (staffId) => async (dispatch, getState) => {
   try {
     dispatch({ type: CLOCK_OUT_REQUEST });
@@ -47,7 +43,6 @@ export const clockoutAction = (staffId) => async (dispatch, getState) => {
       userLogin: { userInfo },
     } = getState();
 
-    // set headers
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -55,7 +50,6 @@ export const clockoutAction = (staffId) => async (dispatch, getState) => {
       },
     };
 
-    //send request
     const { data } = await axios.put("/api/staff/clockout", staffId, config);
 
     dispatch({ type: CLOCK_OUT_SUCCESS, payload: data });
