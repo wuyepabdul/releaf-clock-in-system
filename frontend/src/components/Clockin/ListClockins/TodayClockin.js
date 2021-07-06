@@ -10,9 +10,17 @@ const ListClockins = ({ history }) => {
   const [userInfo, setUserInfo] = useState({});
 
   const userLogin = useSelector((state) => state.userLogin);
-  const { loading, error, userInfo: userData } = userLogin;
+  const { userInfo: userData } = userLogin;
 
-  const checker = (arr) => {
+  useEffect(() => {
+    if (!userData) {
+      history.push("/login");
+    } else {
+      setUserInfo(userData);
+    }
+  }, [userData]);
+
+  const checkIfClocked = (arr) => {
     arr.find((c) => {
       c.createdAt = new Date(c.createdAt);
       if (c.createdAt.getDate() === todayDate.getDate()) {
@@ -22,14 +30,6 @@ const ListClockins = ({ history }) => {
       }
     });
   };
-
-  useEffect(() => {
-    if (!userData) {
-      history.push("/login");
-    } else {
-      setUserInfo(userData);
-    }
-  }, [userData]);
   return (
     <div className="mt-5">
       <h4 className="center-text"> Today's Clock In</h4>
@@ -41,14 +41,14 @@ const ListClockins = ({ history }) => {
             <td>{userInfo.name}</td>
             <td>{userInfo.department}</td>
             <td>
-              {checker(userFromStorage.clockIns) ? (
+              {checkIfClocked(userFromStorage.clockIns) ? (
                 <i className="fas fa-check"> </i>
               ) : (
                 <i className="fas fa-times"> </i>
               )}
             </td>
             <td>
-              {checker(userFromStorage.clockIns) ? (
+              {checkIfClocked(userFromStorage.clockIns) ? (
                 <i className="fas fa-check"> </i>
               ) : (
                 <i className="fas fa-times"> </i>
@@ -56,7 +56,7 @@ const ListClockins = ({ history }) => {
             </td>
             <td></td>
             <td>
-              {checker(userFromStorage.clockIns) ? (
+              {checkIfClocked(userFromStorage.clockIns) ? (
                 <small>
                   {" "}
                   {userInfo.clockOuts.createdAt.getHour()}:{" "}

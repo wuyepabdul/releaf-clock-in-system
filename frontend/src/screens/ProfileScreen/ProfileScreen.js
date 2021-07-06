@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadingButton, showLoading } from "../../helpers/loading";
-import { showErrorMessage, showSuccessMessage } from "../../helpers/message";
 import {
   getUserDetailsAction,
   updateUserProfileAction,
 } from "../../redux/actions/userActions";
 import { isEmpty } from "validator";
 import Meta from "../../components/Meta/Meta";
-
+import { USER_UPDATE_PROFILE_RESET } from "../../redux/constants/userConstants";
+import AlertError from "../../components/Alerts/AlertError";
+import { toast } from "react-toastify";
 const ProfileScreen = ({ history }) => {
   const [userProfileData, setUserProfileData] = useState({
     name: "",
@@ -16,10 +17,9 @@ const ProfileScreen = ({ history }) => {
     department: "",
     staffId: "",
     message: "",
-    errorMessage: "",
   });
 
-  const { name, email, department, staffId, errorMessage } = userProfileData;
+  const { name, email, department, staffId } = userProfileData;
   const dispatch = useDispatch();
 
   const userDetails = useSelector((state) => state.userDetails);
@@ -32,6 +32,12 @@ const ProfileScreen = ({ history }) => {
   const { loading: updateLoading, success: uploadSuccess } = userUpdateProfile;
 
   useEffect(() => {
+    if (uploadSuccess) {
+      toast.success(uploadSuccess);
+      dispatch({ type: USER_UPDATE_PROFILE_RESET });
+      dispatch(getUserDetailsAction());
+      history.push("/");
+    }
     if (!userInfo) {
       history.push("/login");
     } else {
@@ -46,7 +52,7 @@ const ProfileScreen = ({ history }) => {
         });
       }
     }
-  }, [dispatch, history, userInfo, user]);
+  }, [dispatch, history, userInfo, user, uploadSuccess]);
 
   const handleChange = (e) => {
     setUserProfileData({
@@ -74,18 +80,18 @@ const ProfileScreen = ({ history }) => {
 
   return (
     <div className="container-fluid">
-      {console.log("user", user)}
       <Meta title={`Profile ${user.name}`} />
       <div className="mt-3 row">
         <div className="col-md-3 mt-3"></div>
         {userLoading ? (
           showLoading()
         ) : userError ? (
-          showErrorMessage(errorMessage)
+          <AlertError alertMessage={userError} />
         ) : (
           <>
             <div className="col-md-6 mt-3">
-              {uploadSuccess && showSuccessMessage("Profile Updated")}
+              <h2 className="text-center mb-3">Update Your Profile</h2>
+
               <form onSubmit={submitHandler}>
                 <div className="col mb-3 ">
                   <label for="name" className="col-sm-2 col-form-label">

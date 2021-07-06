@@ -122,6 +122,7 @@ export const updateUserProfileAction =
       const { data } = await axios.put("/api/staff/profile", userData, config);
 
       dispatch({ type: USER_UPDATE_PROFILE_SUCCESS, payload: data });
+      dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
       setLocalStorage("userInfo", data);
     } catch (error) {
       console.log(error.message);

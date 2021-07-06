@@ -7,6 +7,7 @@ import { loadingButton } from "../../helpers/loading";
 import Meta from "../../components/Meta/Meta";
 import { USER_REGISTER_RESET } from "../../redux/constants/userConstants";
 import { showErrorMessage } from "../../helpers/message";
+import AlertError from "../../components/Alerts/AlertError";
 
 const RegisterScreen = ({ history }) => {
   const [name, setName] = useState("");
@@ -54,7 +55,8 @@ const RegisterScreen = ({ history }) => {
       <div>
         <div className="row  h-80 d-flex justify-content-center align-items-center">
           <div className="col-md-6 mt-3 ">
-            {error && showErrorMessage(error)}{" "}
+            {error && <AlertError alertMessage={error} />}
+            {message && <AlertError alertMessage={message} />}
             {message && showErrorMessage(message)}
             <form onSubmit={submitHandler}>
               <div className="col mb-3 ">

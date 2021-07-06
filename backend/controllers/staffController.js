@@ -113,7 +113,8 @@ export const clockInStaff = asyncHandler(async (req, res) => {
         });
       }
     } else {
-      res.status(404).json({ message: " Invalid Credentials" });
+      console.log("staff does not exist");
+      res.status(404).json({ message: " Invalid Staff ID" });
     }
   } catch (error) {
     console.log(error.message);
@@ -160,7 +161,7 @@ export const clockOutStaff = asyncHandler(async (req, res) => {
         });
       }
     } else {
-      res.status(404).json({ message: " Invalid Credentials" });
+      res.status(404).json({ message: " Invalid Staff ID" });
     }
   } catch (error) {
     console.log(error.message);

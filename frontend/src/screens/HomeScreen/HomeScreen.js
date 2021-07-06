@@ -26,7 +26,7 @@ const HomeScreen = () => {
         </h1>
       </div>
       <div>
-        <h3> Welcome {userInfo.name} </h3>
+        <h3> Welcome {userInfo.name}</h3> <br />
       </div>
       <div>
         <Clockin />

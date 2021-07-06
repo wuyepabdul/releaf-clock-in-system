@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadingButton, showLoading } from "../../helpers/loading";
 import {
@@ -13,6 +13,7 @@ const Clockin = () => {
 
   const dispatch = useDispatch();
 
+  const [staffClockinId, setStaffClockinId] = useState("");
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
@@ -34,17 +35,21 @@ const Clockin = () => {
     if (!userInfo) {
       history.push("/login");
     }
+    setStaffClockinId(userInfo.staffId);
   }, [history, userInfo]);
 
   const handleClockin = (e) => {
     e.preventDefault();
-    const staffId = { staffId: userInfo.staffId };
+    const staffId = {
+      staffId: staffClockinId,
+    };
+    console.log("staffId", staffId);
     dispatch(clockinAction(staffId));
   };
 
   const handleClockout = (e) => {
     e.preventDefault();
-    const staffId = { staffId: userInfo.staffId };
+    const staffId = { staffId: staffClockinId };
     dispatch(clockoutAction(staffId));
   };
 
@@ -52,7 +57,7 @@ const Clockin = () => {
     <div className="container">
       <div>
         <div className="row  h-80 d-flex justify-content-center align-items-center">
-          <div className="col-md-8 mt-5 ">
+          <div className="col-md-8 mt-2 ">
             <form>
               {clockinSuccess && <AlertSuccess alertMessage={clockinSuccess} />}
               {clockinError && <AlertError alertMessage={clockinError} />}
@@ -62,15 +67,17 @@ const Clockin = () => {
               {clockoutError && <AlertError alertMessage={clockoutError} />}
               <div className=" mb-3 ">
                 <div>
-                  <label for="staffId" className=" form-label">
-                    Staff ID
+                  <label for="staffId" className=" form-label mb-3">
+                    Clockin with your StaffID
                   </label>
                   <input
                     type="text"
                     name="staffId"
+                    value={staffClockinId}
+                    onChange={(e) => setStaffClockinId(e.target.value)}
                     id="staffId"
-                    className="form-control"
-                    value={userInfo.staffId}
+                    placeHolder={userInfo.staffId}
+                    className="form-control text-center"
                   />
                 </div>
               </div>

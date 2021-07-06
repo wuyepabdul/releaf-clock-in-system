@@ -8,12 +8,10 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
-import PeopleIcon from "@material-ui/icons/People";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import MenuIcon from "@material-ui/icons/Menu";
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import HomeIcon from "@material-ui/icons/Home";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import { ExitToApp, ListAlt } from "@material-ui/icons";
 import { Fragment } from "react";
@@ -24,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
       marginLeft: theme.spacing(2),
     },
     color: "white",
+    textDecoration: "none",
 
     "&:hover": {
       color: "white",
@@ -161,7 +160,6 @@ const Header = ({ history }) => {
             <IconButton
               aria-label="account of current user"
               aria-controls="primary-search-account-menu"
-              aria-haspopup="true"
               color="inherit"
             >
               <AccountCircle />
@@ -171,11 +169,7 @@ const Header = ({ history }) => {
             </Link>
           </MenuItem>
           <MenuItem>
-            <IconButton
-              aria-label="listStaff"
-              aria-haspopup="true"
-              color="inherit"
-            >
+            <IconButton aria-label="listStaff" color="inherit">
               <ListAlt />
             </IconButton>
 
@@ -200,7 +194,7 @@ const Header = ({ history }) => {
       ) : (
         <Fragment>
           <MenuItem>
-            <IconButton aria-label="login" aria-haspopup="true" color="inherit">
+            <IconButton aria-label="login" color="inherit">
               <ExitToApp />
             </IconButton>
 
@@ -226,20 +220,10 @@ const Header = ({ history }) => {
     >
       {userInfo && !userInfo.isAdmin ? (
         <Fragment>
-          <MenuItem>
-            <IconButton aria-label="show 4 new mails" color="inherit">
-              <HomeIcon />
-            </IconButton>
-
-            <Link to="/" className={classes.mobileTextColor}>
-              Home
-            </Link>
-          </MenuItem>
           <MenuItem onClick={handleProfileMenuOpen}>
             <IconButton
               aria-label="account of current user"
               aria-controls="primary-search-account-menu"
-              aria-haspopup="true"
               color="inherit"
             >
               <AccountCircle />
@@ -249,11 +233,7 @@ const Header = ({ history }) => {
             </Link>
           </MenuItem>
           <MenuItem>
-            <IconButton
-              aria-label="listStaff"
-              aria-haspopup="true"
-              color="inherit"
-            >
+            <IconButton aria-label="listStaff" color="inherit">
               <ListAlt />
             </IconButton>
 
@@ -275,62 +255,10 @@ const Header = ({ history }) => {
             </Link>
           </MenuItem>
         </Fragment>
-      ) : userInfo && userInfo.isAdmin ? (
-        <>
-          <MenuItem>
-            <IconButton aria-label="login" aria-haspopup="true" color="inherit">
-              <ExitToApp />
-            </IconButton>
-
-            <Link to="#" className={classes.mobileTextColor}>
-              Admin
-            </Link>
-          </MenuItem>
-          <MenuItem>
-            <IconButton aria-label="login" aria-haspopup="true" color="inherit">
-              <PeopleIcon />
-            </IconButton>
-
-            <Link to="/admin/userList" className={classes.mobileTextColor}>
-              Users
-            </Link>
-          </MenuItem>
-          <MenuItem>
-            <IconButton aria-label="login" aria-haspopup="true" color="inherit">
-              <PeopleIcon />
-            </IconButton>
-
-            <Link to="/admin/productList" className={classes.mobileTextColor}>
-              Products
-            </Link>
-          </MenuItem>
-          <MenuItem>
-            <IconButton aria-label="login" aria-haspopup="true" color="inherit">
-              <PeopleIcon />
-            </IconButton>
-
-            <Link to="/admin/orderList" className={classes.mobileTextColor}>
-              Orders
-            </Link>
-          </MenuItem>
-          <MenuItem>
-            <IconButton aria-label="login" color="inherit">
-              <ExitToApp />
-            </IconButton>
-
-            <Link onClick={logoutHandler} className={classes.mobileTextColor}>
-              Logout
-            </Link>
-          </MenuItem>
-        </>
       ) : (
         <Fragment>
           <MenuItem>
-            <IconButton
-              aria-label="register"
-              aria-haspopup="true"
-              color="inherit"
-            >
+            <IconButton aria-label="register" color="inherit">
               <ExitToApp />
             </IconButton>
 
@@ -339,10 +267,6 @@ const Header = ({ history }) => {
             </Link>
           </MenuItem>
           <MenuItem>
-            <IconButton aria-label="login" aria-haspopup="true" color="inherit">
-              <ExitToApp />
-            </IconButton>
-
             <Link to="/login" className={classes.mobileTextColor}>
               SignIn
             </Link>
@@ -365,51 +289,39 @@ const Header = ({ history }) => {
             <MenuIcon />
           </IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
-            Releaf-Clock-In
+            <Link className={classes.textColor} to="/">
+              Releaf-Clock-In
+            </Link>
           </Typography>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <MenuItem>
-              <Typography>
-                <Link className={classes.textColor} to="#">
-                  About
-                </Link>
-              </Typography>
-            </MenuItem>
-            <MenuItem>
-              <Typography>
-                <Link className={classes.textColor} to="/register">
-                  Create Account
-                </Link>
-              </Typography>
-            </MenuItem>
             <IconButton
               edge="end"
-              aria-label="account of current user"
               aria-controls={menuId}
-              aria-haspopup="true"
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
               {userInfo ? (
                 <>
-                  <MenuItem>
-                    <Typography>
-                      <Link className={classes.textColor} to="/">
-                        Home
-                      </Link>
-                    </Typography>
-                  </MenuItem>
                   <AccountCircle />
                 </>
               ) : (
-                <MenuItem>
-                  <Typography>
-                    <Link className={classes.textColor} to="/login">
-                      Signin
-                    </Link>
-                  </Typography>
-                </MenuItem>
+                <>
+                  <MenuItem>
+                    <Typography>
+                      <Link className={classes.textColor} to="/login">
+                        Signin
+                      </Link>
+                    </Typography>
+                  </MenuItem>
+                  <MenuItem>
+                    <Typography>
+                      <Link className={classes.textColor} to="/register">
+                        Create Record
+                      </Link>
+                    </Typography>
+                  </MenuItem>
+                </>
               )}
             </IconButton>
           </div>
@@ -417,7 +329,6 @@ const Header = ({ history }) => {
             <IconButton
               aria-label="show more"
               aria-controls={mobileMenuId}
-              aria-haspopup="true"
               onClick={handleMobileMenuOpen}
               color="inherit"
             >
