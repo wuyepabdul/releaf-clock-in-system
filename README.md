@@ -96,11 +96,11 @@ To run this project, you will need to add the following environment variables to
 
 `NODE_ENV = development`
 
-`PORT = 5000`
+`PORT`
 
-`MONGODB_URI = mongodb+srv://dulstech:dulstech@2793@cluster0.80wna.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`
+`MONGODB_URI`
 
-`JWT_SECRET = dulstech`
+`JWT_SECRET`
 
 ## Run Locally
 
