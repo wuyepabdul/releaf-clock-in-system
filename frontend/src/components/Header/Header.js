@@ -164,6 +164,18 @@ const Header = ({ history }) => {
             >
               <AccountCircle />
             </IconButton>
+            <Link to="/" className={classes.mobileTextColor}>
+              Home
+            </Link>
+          </MenuItem>
+          <MenuItem onClick={handleProfileMenuOpen}>
+            <IconButton
+              aria-label="account of current user"
+              aria-controls="primary-search-account-menu"
+              color="inherit"
+            >
+              <AccountCircle />
+            </IconButton>
             <Link to="/profile" className={classes.mobileTextColor}>
               Profile
             </Link>
@@ -220,6 +232,18 @@ const Header = ({ history }) => {
     >
       {userInfo && !userInfo.isAdmin ? (
         <Fragment>
+          <MenuItem onClick={handleProfileMenuOpen}>
+            <IconButton
+              aria-label="account of current user"
+              aria-controls="primary-search-account-menu"
+              color="inherit"
+            >
+              <AccountCircle />
+            </IconButton>
+            <Link to="/" className={classes.mobileTextColor}>
+              Home
+            </Link>
+          </MenuItem>
           <MenuItem onClick={handleProfileMenuOpen}>
             <IconButton
               aria-label="account of current user"
