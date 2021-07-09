@@ -21,6 +21,8 @@ if (process.env.NODE_ENV === "development") {
 app.use("/api/auth", authRoute);
 app.use("/api/staff", staffRoutes);
 
+const __dirname = path.resolve();
+
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "/frontend/build")));
 
