@@ -3,7 +3,7 @@ import Staff from "../models/staffModel.js";
 import bcrypt from "bcryptjs";
 import generateToken from "../utils/generateToken.js";
 import slugify from "slugify";
-import generateRandomNumber from "../utils/generateRandomNumber.js";
+import generateStaffId from "../utils/generateStaffId.js";
 
 export const authStaffController = asyncHandler(async (req, res) => {
   try {
@@ -50,7 +50,7 @@ export const registerStaffController = asyncHandler(async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
     const staff = new Staff({
-      staffId: generateRandomNumber(name.split(" ")[0]),
+      staffId: generateStaffId(name.split(" ")[0]),
       name,
       slug: slugify(name),
       email,

@@ -289,7 +289,7 @@ const Header = ({ history }) => {
             <MenuIcon />
           </IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
-            <Link className={classes.textColor} to="/">
+            <Link className={classes.textColor} to="#">
               Releaf-Clock-In
             </Link>
           </Typography>

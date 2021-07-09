@@ -1,6 +1,6 @@
 import asyncHandler from "express-async-handler";
 import Staff from "../models/staffModel.js";
-import generateRandomNumber from "../utils/generateRandomNumber.js";
+import generateStaffId from "../utils/generateStaffId.js";
 import generateToken from "../utils/generateToken.js";
 
 export const getAllStaffController = asyncHandler(async (req, res) => {
@@ -47,7 +47,7 @@ export const updateStaffProfileController = asyncHandler(async (req, res) => {
     if (staff) {
       staff.name = req.body.name || staff.name;
       staff.staffId =
-        generateRandomNumber(req.body.name.split(" ")[0]) || staff.staffId;
+        generateStaffId(req.body.name.split(" ")[0]) || staff.staffId;
       staff.email = req.body.email || staff.email;
       staff.department = req.body.department || staff.department;
 

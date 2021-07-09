@@ -1,8 +1,5 @@
 import express from "express";
-import {
-  authStaffController,
-  registerStaffController,
-} from "../controllers/authController.js";
+
 import {
   clockInStaff,
   clockOutStaff,
@@ -10,24 +7,13 @@ import {
   getStaffProfileController,
   updateStaffProfileController,
 } from "../controllers/staffController.js";
-import { isAdmin, protect } from "../middlewares/authMiddleware.js";
+import { protect } from "../middlewares/authMiddleware.js";
 import {
-  signinValidator,
   validatorResult,
   updateProfileValidator,
-  registerValidator,
 } from "../middlewares/validator.js";
 
 const router = express.Router();
-
-router.post(
-  "/register",
-  registerValidator,
-  validatorResult,
-  registerStaffController
-);
-
-router.post("/login", signinValidator, validatorResult, authStaffController);
 
 router.get("/profile", protect, getStaffProfileController);
 
