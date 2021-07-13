@@ -133,7 +133,7 @@ const RegisterScreen = ({ history }) => {
                   </button>
                 )}
                 <div className="mt-4">
-                  Have an Account? <Link to="/">Login here</Link>
+                  Have an Account? <Link to="/login">Login here</Link>
                 </div>
               </div>
             </form>
