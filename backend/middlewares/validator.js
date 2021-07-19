@@ -1,6 +1,6 @@
-import { check, validationResult } from "express-validator";
+const { check, validationResult } = require("express-validator");
 
-export const registerValidator = [
+module.exports.registerValidator = [
   check("name").not().isEmpty().trim().withMessage("All fields are required"),
   check("email")
     .isEmail()
@@ -12,7 +12,7 @@ export const registerValidator = [
     .withMessage("Password must be at least 4 characters long"),
 ];
 
-export const signinValidator = [
+module.exports.signinValidator = [
   check("email")
     .not()
     .isEmpty()
@@ -24,11 +24,11 @@ export const signinValidator = [
     .withMessage("Password must be at least 4 characters long"),
 ];
 
-export const updateProfileValidator = [
+module.exports.updateProfileValidator = [
   check("name").not().isEmpty().trim().withMessage("All fields are required"),
 ];
 
-export const validatorResult = (req, res, next) => {
+module.exports.validatorResult = (req, res, next) => {
   const result = validationResult(req);
   const hasErrors = !result.isEmpty();
   if (hasErrors) {

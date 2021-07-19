@@ -1,8 +1,143 @@
 # Releaf Clockin System
 
 This application will be used to track when a staff clock in & out of the office. It is developed using the frontend and backend pattern. It requires a staff to login into the system to be able to clockin/clockout once day, view his/profile, update his/her profile, view list of all staff and logout
+## Environment Variables
 
-## API Reference
+To run this project, you will need to add the following environment variables to your .env file
+
+`NODE_ENV = development`
+
+`PORT`
+
+`MONGODB_URI`
+
+`JWT_SECRET`
+
+## Run Locally
+
+Clone the project
+
+```bash
+  git clone https://github.com/wuyepabdul/releaf-clock-in-system
+```
+
+Go to the project directory
+
+```bash
+  cd releaf-clock-in-system
+```
+
+Install dependencies
+
+```bash
+  npm install
+```
+
+Go to the frontend directory inside releaf-clock-in-system directory
+
+```bash
+  cd frontend
+```
+
+Install dependencies
+
+```bash
+  npm install
+```
+
+Go to the root directory, that is, releaf-clock-in-system
+Start the application
+
+```bash
+  npm run dev
+```
+
+## Run Locally
+
+Clone the project
+
+```bash
+  git clone https://github.com/wuyepabdul/releaf-clock-in-system
+```
+
+Go to the project directory
+
+```bash
+  cd releaf-clock-in-system
+```
+
+Install server-side dependencies 
+
+```bash
+  npm install
+```
+
+Go to the frontend directory inside releaf-clock-in-system directory
+
+```bash
+  cd frontend
+```
+
+Install client-side dependencies
+
+```bash
+  npm install
+```
+
+Go to root directory (releaf-clock-in-system)
+Start backend server
+
+```bash
+  cd releaf-clock-in-system
+  npm start
+```
+
+Go to frontend directory (releaf-clock-in-system)
+Start client-server
+
+```bash
+  cd releaf-clock-in-system/frontend
+  npm start
+```
+
+Go to the root directory, that is, releaf-clock-in-system
+Start the application (run both backend and frontend servers together)
+
+```bash
+  cd releaf-clock-in-system
+  npm run dev
+```
+
+## Tech Stack
+
+**Client:** React, Redux, Bootstrap, Material-ui
+
+**Server:** Node, Express, Mongoose, MongoDB
+
+  
+## Features
+
+- Create a staff
+- Login a staff
+- Clockin a staff
+- Clockout a staff
+- View staff profile
+- Update a staff
+- View list of all staff
+- Logout
+## Authors
+
+- [wuyepabdul](https://github.com/wuyepabdul/)
+
+  
+## Acknowledgements
+
+ - [Readme so](https://readme.so)
+ - [Awesome Readme Templates](https://awesomeopensource.com/project/elangosundar/awesome-README-templates)
+ - [Awesome README](https://github.com/matiassingers/awesome-readme)
+ - [How to write a Good readme](https://bulldogjob.com/news/449-how-to-write-a-good-readme-for-your-github-project)
+
+  ## API Reference
 
 #### Get all staff
 
@@ -89,85 +224,19 @@ middleware to check if staff is logged in
 #### updateProfileValidator, signinValidator, registerValidator
 
 middlewares to validate form data
-
-## Environment Variables
-
-To run this project, you will need to add the following environment variables to your .env file
-
-`NODE_ENV = development`
-
-`PORT`
-
-`MONGODB_URI`
-
-`JWT_SECRET`
-
-## Run Locally
-
-Clone the project
-
-```bash
-  git clone https://github.com/wuyepabdul/releaf-clock-in-system
-```
-
-Go to the project directory
-
-```bash
-  cd releaf-clock-in-system
-```
-
-Install dependencies
-
-```bash
-  npm install
-```
-
-Go to the frontend directory inside releaf-clock-in-system directory
-
-```bash
-  cd frontend
-```
-
-Install dependencies
-
-```bash
-  npm install
-```
-
-Go to the root directory, that is, releaf-clock-in-system
-Start the application
-
-```bash
-  npm run dev
-```
-
-## Tech Stack
-
-**Client:** React, Redux, Bootstrap, Material-ui
-
-**Server:** Node, Express, Mongoose, MongoDB
-
-## Features
-
-- Create a staff
-- Login a staff
-- Clockin a staff
-- Clockout a staff
-- View staff profile
-- Update a staff
-- View list of all staff
-- Logout
-
 ## Demo
 
 Visit the below link and experience the functionalities firsthand
 
 https://relief-clockin-system.herokuapp.com/
+  
+## Running Tests
 
-## Authors
+To run tests, run the following command
 
-wuyep abdul
+```bash
+  cd releaf-clock-in-system
+  npm run test
+```
 
-## Acknowledgements
-
-- [Readme so](https://readme.so)
+  

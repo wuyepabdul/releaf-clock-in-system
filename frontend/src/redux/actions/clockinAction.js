@@ -14,7 +14,7 @@ export const clockinAction = (staffId) => async (dispatch, getState) => {
     const {
       userLogin: { userInfo },
     } = getState();
-
+    console.log("tokenInfo", userInfo);
     const config = {
       headers: {
         "Content-Type": "application/json",

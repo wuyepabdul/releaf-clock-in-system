@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 const { ObjectId } = mongoose.Schema.Types;
 
 const clockinSchema = new mongoose.Schema(
@@ -34,4 +34,4 @@ const staffSchema = new mongoose.Schema(
 
 const Staff = mongoose.model("Staff", staffSchema);
 
-export default Staff;
+module.exports = Staff;

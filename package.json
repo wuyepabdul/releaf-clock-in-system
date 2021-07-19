@@ -1,11 +1,15 @@
 {
   "name": "releaf",
+  "jest": {
+    "verbose": true,
+    "testTimeout": 30000
+  },
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
-  "type": "module",
   "scripts": {
     "start": "node backend/server",
+    "test": "jest --watchAll",
     "server": "nodemon backend/server",
     "client": "npm start --prefix frontend",
     "data:import": "node backend/seeder",
@@ -25,6 +29,8 @@
     "express": "^4.17.1",
     "express-async-handler": "^1.1.4",
     "express-validator": "^6.10.0",
+    "jest": "^27.0.6",
+    "jest-sorted": "^1.0.12",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.12.2",
     "morgan": "^1.10.0",
@@ -34,6 +40,7 @@
   },
   "devDependencies": {
     "concurrently": "^6.2.0",
-    "nodemon": "^2.0.7"
+    "nodemon": "^2.0.7",
+    "supertest": "^6.1.3"
   }
 }

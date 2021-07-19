@@ -1,25 +1,27 @@
-import asyncHandler from "express-async-handler";
-import Staff from "../models/staffModel.js";
-import bcrypt from "bcryptjs";
-import generateToken from "../utils/generateToken.js";
-import slugify from "slugify";
-import generateStaffId from "../utils/generateStaffId.js";
+const asyncHandler = require("express-async-handler");
+const Staff = require("../models/staffModel.js");
+const bcrypt = require("bcryptjs");
+const generateToken = require("../utils/generateToken");
+const slugify = require("slugify");
+const generateStaffId = require("../utils/generateStaffId");
 
-export const authStaffController = asyncHandler(async (req, res) => {
+module.exports.authStaffController = asyncHandler(async (req, res) => {
   try {
     const { email, password } = req.body;
     const staff = await Staff.findOne({ email });
 
     if (!staff) {
       res.status(401).json({ message: "Invalid Email or Password" });
+      console.log("staff not found");
       return;
     } else {
       const matchedPassword = await bcrypt.compare(password, staff.password);
       if (!matchedPassword) {
         res.status(401).json({ message: "Invalid Email or Password" });
+        console.log("password not matched");
         return;
       }
-      res.json({
+      res.status(200).json({
         _id: staff._id,
         staffId: staff.staffId,
         name: staff.name,
@@ -37,7 +39,7 @@ export const authStaffController = asyncHandler(async (req, res) => {
   }
 });
 
-export const registerStaffController = asyncHandler(async (req, res) => {
+module.exports.registerStaffController = asyncHandler(async (req, res) => {
   try {
     const { name, email, password, department } = req.body;
     const emailExist = await Staff.findOne({ email });

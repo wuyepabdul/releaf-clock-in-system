@@ -1,13 +1,13 @@
-import express from "express";
-import {
+const express = require("express");
+const {
   authStaffController,
   registerStaffController,
-} from "../controllers/authController.js";
-import {
+} = require("../controllers/authController.js");
+const {
   registerValidator,
   signinValidator,
   validatorResult,
-} from "../middlewares/validator.js";
+} = require("../middlewares/validator.js");
 
 const router = express.Router();
 
@@ -20,4 +20,4 @@ router.post(
 
 router.post("/login", signinValidator, validatorResult, authStaffController);
 
-export default router;
+module.exports = router;

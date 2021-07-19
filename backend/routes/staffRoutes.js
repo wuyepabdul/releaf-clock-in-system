@@ -1,17 +1,17 @@
-import express from "express";
+const express = require("express");
 
-import {
+const {
   clockInStaff,
   clockOutStaff,
   getAllStaffController,
   getStaffProfileController,
   updateStaffProfileController,
-} from "../controllers/staffController.js";
-import { protect } from "../middlewares/authMiddleware.js";
-import {
+} = require("../controllers/staffController.js");
+const { protect } = require("../middlewares/authMiddleware.js");
+const {
   validatorResult,
   updateProfileValidator,
-} from "../middlewares/validator.js";
+} = require("../middlewares/validator.js");
 
 const router = express.Router();
 
@@ -31,4 +31,4 @@ router.put("/clockin", protect, clockInStaff);
 
 router.put("/clockout", protect, clockOutStaff);
 
-export default router;
+module.exports = router;
