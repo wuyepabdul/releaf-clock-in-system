@@ -1,21 +1,21 @@
-const asyncHandler = require("express-async-handler");
-const Staff = require("../models/staffModel.js");
-const generateStaffId = require("../utils/generateStaffId.js");
-const generateToken = require("../utils/generateToken.js");
+const asyncHandler = require('express-async-handler');
+const Staff = require('../models/staffModel.js');
+const generateStaffId = require('../utils/generateStaffId.js');
+const generateToken = require('../utils/generateToken.js');
 
 module.exports.getAllStaffController = asyncHandler(async (req, res) => {
   try {
     const staff = await Staff.find({})
-      .select("-password")
+      .select('-password')
       .sort({ createdAt: -1 });
 
     if (staff) {
       res.json(staff);
     } else {
-      res.status(404).json({ message: "No staff found" });
+      res.status(404).json({ message: 'No staff found' });
     }
   } catch (error) {
-    res.status(500).json({ message: "Server error, try again later" });
+    res.status(500).json({ message: 'Server error, try again later' });
   }
 });
 
@@ -33,11 +33,11 @@ module.exports.getStaffProfileController = asyncHandler(async (req, res) => {
         isAdmin: staff.isAdmin,
       });
     } else {
-      res.status(404).json({ message: "Staff not found" });
+      res.status(404).json({ message: 'Staff not found' });
     }
   } catch (error) {
-    console.log("error", error.message);
-    res.status(500).json({ message: "Server Error, try again later" });
+    console.log('error', error.message);
+    res.status(500).json({ message: 'Server Error, try again later' });
   }
 });
 
@@ -48,7 +48,7 @@ module.exports.updateStaffProfileController = asyncHandler(async (req, res) => {
     if (staff) {
       staff.name = req.body.name || staff.name;
       staff.staffId =
-        generateStaffId(req.body.name.split(" ")[0]) || staff.staffId;
+        generateStaffId(req.body.name.split(' ')[0]) || staff.staffId;
       staff.email = req.body.email || staff.email;
       staff.department = req.body.department || staff.department;
 
@@ -66,11 +66,11 @@ module.exports.updateStaffProfileController = asyncHandler(async (req, res) => {
         token: generateToken(updatedStaff._id),
       });
     } else {
-      res.status(404).json({ message: "Staff not found" });
+      res.status(404).json({ message: 'Staff not found' });
     }
   } catch (error) {
     console.log(error.message);
-    res.status(500).json({ message: "Server Error, try again later" });
+    res.status(500).json({ message: 'Server Error, try again later' });
   }
 });
 
@@ -90,7 +90,7 @@ module.exports.clockInStaff = asyncHandler(async (req, res) => {
       if (alreadyClockedIn) {
         res
           .status(400)
-          .json({ message: "You have already Clocked In For Today" });
+          .json({ message: 'You have already Clocked In For Today' });
       } else {
         const clockIn = {
           clockedInAt: currentTime,
@@ -114,12 +114,12 @@ module.exports.clockInStaff = asyncHandler(async (req, res) => {
         });
       }
     } else {
-      console.log("staff does not exist");
-      res.status(404).json({ message: " Invalid Staff ID" });
+      console.log('staff does not exist');
+      res.status(404).json({ message: ' Invalid Staff ID' });
     }
   } catch (error) {
     console.log(error.message);
-    res.status(500).json({ message: "Server error: try again later" });
+    res.status(500).json({ message: 'Server error: try again later' });
   }
 });
 
@@ -139,7 +139,7 @@ module.exports.clockOutStaff = asyncHandler(async (req, res) => {
       if (alreadyClockedOut) {
         res
           .status(400)
-          .json({ message: "You have already Clocked Out For Today" });
+          .json({ message: 'You have already Clocked Out For Today' });
       } else {
         const clockOut = {
           clockedOutAt: currentTime,
@@ -162,10 +162,10 @@ module.exports.clockOutStaff = asyncHandler(async (req, res) => {
         });
       }
     } else {
-      res.status(404).json({ message: " Invalid Staff ID" });
+      res.status(404).json({ message: ' Invalid Staff ID' });
     }
   } catch (error) {
     console.log(error.message);
-    res.status(500).json({ message: "Server error: try again later" });
+    res.status(500).json({ message: 'Server error: try again later' });
   }
 });

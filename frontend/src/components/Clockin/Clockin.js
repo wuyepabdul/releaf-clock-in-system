@@ -54,7 +54,7 @@ const Clockin = () => {
   };
 
   return (
-    <div className="container">
+    <div data-test="clockin-component" className="container">
       <div>
         <div className="row  h-80 d-flex justify-content-center align-items-center">
           <div className="col-md-8 mt-2 ">

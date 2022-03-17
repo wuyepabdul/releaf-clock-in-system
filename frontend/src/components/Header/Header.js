@@ -301,12 +301,13 @@ const Header = ({ history }) => {
   );
 
   return (
-    <div className={classes.grow}>
+    <div data-test="headerComponent" className={classes.grow}>
       <AppBar position="static">
         <Toolbar>
           <IconButton
             edge="start"
             className={classes.menuButton}
+            data-test="headerComponent"
             color="inherit"
             aria-label="open drawer"
           >
