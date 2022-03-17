@@ -95,6 +95,7 @@ module.exports.clockInStaff = asyncHandler(async (req, res) => {
         const clockIn = {
           clockedInAt: currentTime,
           staff: req.user._id,
+          clockedIn:true,
         };
 
         staff.clockIns.push(clockIn);
@@ -144,6 +145,8 @@ module.exports.clockOutStaff = asyncHandler(async (req, res) => {
         const clockOut = {
           clockedOutAt: currentTime,
           staff: req.user._id,
+          clockedOut:true,
+
         };
 
         staff.clockOuts.push(clockOut);
