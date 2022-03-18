@@ -1,3 +1,5 @@
+const currentTime = new Date();
+
 const checkClockIn = (staff) => {
     return staff.clockIns.find(
         (c) =>
@@ -7,7 +9,7 @@ const checkClockIn = (staff) => {
 }
 
 const checkClockOut = (staff) => {
-    staff.clockIns.find(
+    return staff.clockOuts.find(
         (c) =>
           c.clockedOutAt.getDate().toString() ===
           currentTime.getDate().toString()

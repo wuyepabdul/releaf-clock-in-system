@@ -1,4 +1,5 @@
 const asyncHandler = require('express-async-handler');
+const { checkClockIn } = require('../helpers/checkClockin.js');
 const Staff = require('../models/staffModel.js');
 const generateStaffId = require('../utils/generateStaffId.js');
 const generateToken = require('../utils/generateToken.js');
@@ -81,13 +82,13 @@ module.exports.clockInStaff = asyncHandler(async (req, res) => {
     const staff = await Staff.findOne({ staffId });
 
     if (staff) {
-      const alreadyClockedIn = staff.clockIns.find(
-        (c) =>
-          c.clockedInAt.getDate().toString() ===
-          currentTime.getDate().toString()
-      );
+      // const alreadyClockedIn = staff.clockIns.find(
+      //   (c) =>
+      //     c.clockedInAt.getDate().toString() ===
+      //     currentTime.getDate().toString()
+      // );
 
-      if (alreadyClockedIn) {
+      if (checkClockIn(staff)) {
         res
           .status(400)
           .json({ message: 'You have already Clocked In For Today' });
@@ -131,13 +132,13 @@ module.exports.clockOutStaff = asyncHandler(async (req, res) => {
     const staff = await Staff.findOne({ staffId });
 
     if (staff) {
-      const alreadyClockedOut = staff.clockOuts.find(
-        (c) =>
-          c.clockedOutAt.getDate().toString() ===
-          currentTime.getDate().toString()
-      );
+      // const alreadyClockedOut = staff.clockOuts.find(
+      //   (c) =>
+      //     c.clockedOutAt.getDate().toString() ===
+      //     currentTime.getDate().toString()
+      // );
 
-      if (alreadyClockedOut) {
+      if (checkClockIn(staff)) {
         res
           .status(400)
           .json({ message: 'You have already Clocked Out For Today' });
