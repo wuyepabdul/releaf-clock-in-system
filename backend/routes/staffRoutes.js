@@ -1,8 +1,7 @@
 const express = require("express");
+const { clockInStaff, clockOutStaff } = require("../controllers/clockinController.js");
 
 const {
-  clockInStaff,
-  clockOutStaff,
   getAllStaffController,
   getStaffProfileController,
   updateStaffProfileController,
@@ -27,8 +26,8 @@ router.put(
   updateStaffProfileController
 );
 
-router.put("/clockin", protect, clockInStaff);
+router.post("/clockin", protect, clockInStaff);
 
-router.put("/clockout", protect, clockOutStaff);
+router.post("/clockout", protect, clockOutStaff);
 
 module.exports = router;
