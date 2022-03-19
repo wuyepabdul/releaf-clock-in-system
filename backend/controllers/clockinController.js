@@ -3,10 +3,12 @@ const asyncHandler = require('express-async-handler');
 const Staff = require("../models/staffModel");
 const generateToken = require("../utils/generateToken");
 const Clockin = require("../models/clockinModel");
+const Clockout = require("../models/clockoutModel");
+
+const todaysDate = new Date();
 
 module.exports.clockInStaff = asyncHandler(async (req, res) => {
   try {
-    const todaysDate = new Date();
 
     const clockin = await Clockin.findOne({staff : req.user._id})
     if(clockin.createdAt.toDateString() === todaysDate.toDateString()){
@@ -20,7 +22,6 @@ module.exports.clockInStaff = asyncHandler(async (req, res) => {
           });
         const savedClockin = await newClockIn.save()
         res.json(savedClockin)
-        console.log('saved clockin',savedClockin)
     }
 
     // if (staff) {
@@ -69,46 +70,18 @@ module.exports.clockInStaff = asyncHandler(async (req, res) => {
 
 module.exports.clockOutStaff = asyncHandler(async (req, res) => {
   try {
-    const { staffId } = req.body;
-    const currentTime = new Date();
-    const staff = await Staff.findOne({ staffId });
-
-    if (staff) {
-      // const alreadyClockedOut = staff.clockOuts.find(
-      //   (c) =>
-      //     c.clockedOutAt.getDate().toString() ===
-      //     currentTime.getDate().toString()
-      // );
-
-      if (checkClockIn(staff)) {
+    const clockout = await Clockout.findOne({staff : req.user._id})
+    if(clockout.createdAt.toDateString() === todaysDate.toDateString()){
         res
           .status(400)
-          .json({ message: 'You have already Clocked Out For Today' });
-      } else {
-        const clockOut = {
-          clockedOutAt: currentTime,
-          staff: req.user._id,
-          clockedOut:true,
-
-        };
-
-        staff.clockOuts.push(clockOut);
-        await staff.save();
-        res.status(201).json({
-          _id: staff._id,
-          staffId: staff.staffId,
-          name: staff.name,
-          slug: staff.slug,
-          email: staff.email,
-          department: staff.department,
-          clockIns: staff.clockIns,
-          clockOuts: staff.clockOuts,
-          isAdmin: staff.isAdmin,
-          token: generateToken(staff._id),
-        });
-      }
-    } else {
-      res.status(404).json({ message: ' Invalid Staff ID' });
+          .json({ message: 'You have already Clocked In For Today' });
+    }else{
+        const newClockOut = new Clockout({
+            staff: req.user._id,
+            clockedIn:true,
+          });
+        const savedClockout = await newClockOut.save()
+        res.json(savedClockout)
     }
   } catch (error) {
     console.log(error.message);
