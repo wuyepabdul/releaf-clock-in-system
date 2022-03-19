@@ -97,11 +97,22 @@ module.exports.clockOutStaff = asyncHandler(async (req, res) => {
 module.exports.getAllClockinsController = asyncHandler(async (req, res) => {
   try {
     const clockins = await Clockin.find({})
-      .populate("staff")
-      .select("-password")
+      .populate("staff", "-password")
       .sort({ createdAt: -1 });
 
     res.json({ clockins });
+  } catch (error) {
+    res.status(500).json({ message: "Server error, try again later" });
+  }
+});
+
+module.exports.getAllClockoutsController = asyncHandler(async (req, res) => {
+  try {
+    const clockouts = await Clockout.find({})
+      .populate("staff", "-password")
+      .sort({ createdAt: -1 });
+
+    res.json({ clockouts });
   } catch (error) {
     res.status(500).json({ message: "Server error, try again later" });
   }
