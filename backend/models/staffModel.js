@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { ObjectId } = mongoose.Schema.Types;
+// const { ObjectId } = mongoose.Schema.Types;
 
 // const clockinSchema = new mongoose.Schema(
 //   {
@@ -27,8 +27,6 @@ const staffSchema = new mongoose.Schema(
     slug: { type: String, required: true },
     password: { type: String, required: true },
     department: { type: String, required: true },
-    clockIns: [clockinSchema],
-    clockOuts: [clockoutSchema],
     isAdmin: { type: Boolean, required: true, default: false },
   },
   { timestamps: true }
