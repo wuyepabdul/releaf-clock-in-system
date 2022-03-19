@@ -36,7 +36,7 @@ const Clockin = () => {
       history.push("/login");
     }
     setStaffClockinId(userInfo.staffId);
-  }, [history, userInfo]);
+  }, [history, userInfo, dispatch]);
 
   const handleClockin = (e) => {
     e.preventDefault();
@@ -67,7 +67,7 @@ const Clockin = () => {
               {clockoutError && <AlertError alertMessage={clockoutError} />}
               <div className=" mb-3 ">
                 <div>
-                  <label for="staffId" className=" form-label mb-3">
+                  <label htmlFor="staffId" className=" form-label mb-3">
                     Clockin with your StaffID
                   </label>
                   <input
@@ -76,7 +76,7 @@ const Clockin = () => {
                     value={staffClockinId}
                     onChange={(e) => setStaffClockinId(e.target.value)}
                     id="staffId"
-                    placeHolder={userInfo.staffId}
+                    placeholder={userInfo.staffId}
                     className="form-control text-center"
                   />
                 </div>

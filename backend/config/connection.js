@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const dbConnection = async () => {
   try {
-    const conn = await mongoose.connect(process.env.MONGODB_URI, {
+    const conn = await mongoose.connect(process.env.MONGODB_COMPASS, {
       useNewUrlParser: true,
       useCreateIndex: true,
       useUnifiedTopology: true,

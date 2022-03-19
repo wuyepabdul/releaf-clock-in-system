@@ -5,6 +5,7 @@ import GetCurrentTime from "../../components/GetCurrentTime/GetCurrentTime";
 import Clockin from "../../components/Clockin/Clockin";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import ListClockins from "../../components/Clockin/ListClockins/ListClockins"
 
 const HomeScreen = () => {
   const history = useHistory();
@@ -18,19 +19,22 @@ const HomeScreen = () => {
     }
   }, [userInfo, history]);
   return (
-    <div className="container  center-items">
+    <div className="container">
       <Meta />
-      <div>
-        <h1>
-          <GetCurrentTime />
-        </h1>
-      </div>
-      <div>
-        <h3> Welcome {userInfo.name}</h3> <br />
-      </div>
-      <div>
-        <Clockin />
-      </div>
+      <div className="col">
+          <h1>
+            <GetCurrentTime />
+          </h1>
+        </div>
+     <div className='row'>
+       
+        <div className="col-sm-6">
+          <Clockin />
+        </div>
+        <div className="col-sm-6">
+        <ListClockins />
+        </div>
+     </div>
     </div>
   );
 };
