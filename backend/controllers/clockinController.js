@@ -1,5 +1,5 @@
 const { checkClockIn } = require("../helpers/checkClockin");
-const asyncHandler = require('express-async-handler');
+const asyncHandler = require("express-async-handler");
 const Staff = require("../models/staffModel");
 const generateToken = require("../utils/generateToken");
 const Clockin = require("../models/clockinModel");
@@ -9,19 +9,21 @@ const todaysDate = new Date();
 
 module.exports.clockInStaff = asyncHandler(async (req, res) => {
   try {
-
-    const clockin = await Clockin.findOne({staff : req.user._id})
-    if(clockin.createdAt.toDateString() === todaysDate.toDateString()){
-        res
-          .status(400)
-          .json({ message: 'You have already Clocked In For Today' });
-    }else{
-        const newClockIn = new Clockin({
-            staff: req.user._id,
-            clockedIn:true,
-          });
-        const savedClockin = await newClockIn.save()
-        res.json(savedClockin)
+    const clockin = await Clockin.findOne({ staff: req.user._id });
+    if (
+      clockin &&
+      clockin.createdAt.toDateString() === todaysDate.toDateString()
+    ) {
+      res
+        .status(400)
+        .json({ message: "You have already Clocked In For Today" });
+    } else {
+      const newClockIn = new Clockin({
+        staff: req.user._id,
+        clockedIn: true,
+      });
+      const savedClockin = await newClockIn.save();
+      res.json(savedClockin);
     }
 
     // if (staff) {
@@ -64,27 +66,30 @@ module.exports.clockInStaff = asyncHandler(async (req, res) => {
     // }
   } catch (error) {
     console.log(error.message);
-    res.status(500).json({ message: 'Server error: try again later' });
+    res.status(500).json({ message: "Server error: try again later" });
   }
 });
 
 module.exports.clockOutStaff = asyncHandler(async (req, res) => {
   try {
-    const clockout = await Clockout.findOne({staff : req.user._id})
-    if(clockout.createdAt.toDateString() === todaysDate.toDateString()){
-        res
-          .status(400)
-          .json({ message: 'You have already Clocked In For Today' });
-    }else{
-        const newClockOut = new Clockout({
-            staff: req.user._id,
-            clockedIn:true,
-          });
-        const savedClockout = await newClockOut.save()
-        res.json(savedClockout)
+    const clockout = await Clockout.findOne({ staff: req.user._id });
+    if (
+      clockout &&
+      clockout.createdAt.toDateString() === todaysDate.toDateString()
+    ) {
+      res
+        .status(400)
+        .json({ message: "You have already Clocked Out For Today" });
+    } else {
+      const newClockOut = new Clockout({
+        staff: req.user._id,
+        clockedOut: true,
+      });
+      const savedClockout = await newClockOut.save();
+      res.json(savedClockout);
     }
   } catch (error) {
     console.log(error.message);
-    res.status(500).json({ message: 'Server error: try again later' });
+    res.status(500).json({ message: "Server error: try again later" });
   }
 });
