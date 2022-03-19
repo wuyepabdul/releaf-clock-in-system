@@ -1,5 +1,5 @@
 const express = require("express");
-const { clockInStaff, clockOutStaff } = require("../controllers/clockinController.js");
+const { clockInStaff, clockOutStaff, getAllClockinsController } = require("../controllers/clockinController.js");
 
 const {
   getAllStaffController,
@@ -17,6 +17,8 @@ const router = express.Router();
 router.get("/profile", protect, getStaffProfileController);
 
 router.get("/list", protect, getAllStaffController);
+
+router.get('/clockins', getAllClockinsController)
 
 router.put(
   "/profile",
