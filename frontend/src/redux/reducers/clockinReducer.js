@@ -6,6 +6,12 @@ import {
   CLOCK_OUT_FAIL,
   CLOCK_OUT_REQUEST,
   CLOCK_OUT_SUCCESS,
+  GET_ALL_CLOCK_INS_REQUEST,
+  GET_ALL_CLOCK_INS_SUCCESS,
+  GET_ALL_CLOCK_INS_FAIL,
+  GET_ALL_CLOCK_OUTS_REQUEST,
+  GET_ALL_CLOCK_OUTS_SUCCESS,
+  GET_ALL_CLOCK_OUTS_FAIL
 } from "../constants/clockinConstants";
 
 export const staffClockinReducer = (state = [], action) => {
@@ -41,6 +47,22 @@ export const staffClockoutReducer = (state = [], action) => {
       return { loading: false, error: action.payload };
     case CLOCK_IN_RESET:
       return [];
+    default:
+      return state;
+  }
+};
+
+export const clockoutsReducer = (state = [], action) => {
+  switch (action.type) {
+    case GET_ALL_CLOCK_OUTS_REQUEST:
+      return { loading: true };
+    case GET_ALL_CLOCK_OUTS_SUCCESS:
+      return {
+        loading: false,
+        clockins: action.payload
+      };
+    case GET_ALL_CLOCK_OUTS_FAILS:
+      return { loading: false, error: action.payload };
     default:
       return state;
   }
