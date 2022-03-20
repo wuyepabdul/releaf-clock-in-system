@@ -67,3 +67,19 @@ export const clockoutsReducer = (state = [], action) => {
       return state;
   }
 };
+
+export const clockinsReducer = (state = [], action) => {
+  switch (action.type) {
+    case GET_ALL_CLOCK_INS_REQUEST:
+      return { loading: true };
+    case GET_ALL_CLOCK_INS_SUCCESS:
+      return {
+        loading: false,
+        clockins: action.payload
+      };
+    case GET_ALL_CLOCK_INS_FAILS:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
