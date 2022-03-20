@@ -26,8 +26,6 @@ export const staffClockinReducer = (state = [], action) => {
       };
     case CLOCK_IN_FAIL:
       return { loading: false, error: action.payload };
-    case CLOCK_IN_RESET:
-      return [];
     default:
       return state;
   }
@@ -45,14 +43,12 @@ export const staffClockoutReducer = (state = [], action) => {
       };
     case CLOCK_OUT_FAIL:
       return { loading: false, error: action.payload };
-    case CLOCK_IN_RESET:
-      return [];
     default:
       return state;
   }
 };
 
-export const clockoutsReducer = (state = [], action) => {
+export const allClockoutsReducer = (state = [], action) => {
   switch (action.type) {
     case GET_ALL_CLOCK_OUTS_REQUEST:
       return { loading: true };
@@ -68,7 +64,7 @@ export const clockoutsReducer = (state = [], action) => {
   }
 };
 
-export const clockinsReducer = (state = [], action) => {
+export const allClockinsReducer = (state = [], action) => {
   switch (action.type) {
     case GET_ALL_CLOCK_INS_REQUEST:
       return { loading: true };

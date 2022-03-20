@@ -2,6 +2,8 @@ import { combineReducers, applyMiddleware, createStore } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
 import {
+  allClockinsReducer,
+  allClockoutsReducer,
   staffClockinReducer,
   staffClockoutReducer,
 } from "./reducers/clockinReducer";
@@ -22,6 +24,8 @@ const reducers = combineReducers({
   userList: userListReducer,
   staffClockin: staffClockinReducer,
   staffClockout: staffClockoutReducer,
+  allClockins:allClockinsReducer,
+  allClockouts:allClockoutsReducer
 });
 
 const userInfoFromLocalStorage = localStorage.getItem("userInfo")

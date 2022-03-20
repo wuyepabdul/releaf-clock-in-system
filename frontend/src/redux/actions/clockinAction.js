@@ -72,7 +72,7 @@ export const clockoutAction = (staffId) => async (dispatch, getState) => {
   }
 };
 
-export const getAllclockinsAction = () => async (dispatch, getState) => {
+export const getAllClockinsAction = () => async (dispatch, getState) => {
   try {
     dispatch({ type: GET_ALL_CLOCK_INS_REQUEST });
     const {
@@ -101,7 +101,7 @@ export const getAllclockinsAction = () => async (dispatch, getState) => {
   }
 };
 
-export const getAllclockoutsAction = () => async (dispatch, getState) => {
+export const getAllClockoutsAction = () => async (dispatch, getState) => {
   try {
     dispatch({ type: GET_ALL_CLOCK_OUTS_REQUEST });
     const {

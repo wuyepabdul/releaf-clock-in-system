@@ -1,15 +1,15 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { showLoading } from "../../../helpers/loading";
-import { listUsersAction } from "../../../redux/actions/userActions";
+import { getAllClockinsAction } from "../../../redux/actions/clockinAction";
 
 const ListClockins = () => {
   const dispatch = useDispatch()
 
-  const {userList} = useSelector((state)=>state)
-  const {users} = userList
+  const {allClockins} = useSelector((state)=>state)
+  const {loading, clockins} = allClockins
   useEffect(()=>{
-    dispatch(listUsersAction())
+    dispatch(getAllClockinsAction())
   },[dispatch])
   return (
     <div>
@@ -25,35 +25,29 @@ const ListClockins = () => {
             </tr>
           </thead>
           <tbody>
-            {users
-              ? users.map((user)=>(
-                <tr key={user.email}>{
-                  user.clockIns.map((clockin, index) => (
-                    <tr key={clockin.clockedInAt}>
-                      <td>{index + 1}</td>
-                      <td>{clockin.clockedIn ? <i className="fas fa-check text-success"> </i> : <i className="far fa-exclamation-circle text-warning"></i>}</td>
-                      <td>{clockin.clockedIn ? <i className="fas fa-check text-success"> </i> : <i className="far fa-exclamation-circle text-warning"></i>}</td>
-                      <td>
-                        {new Date(clockin.clockedInAt).getHours()}:
-                        {new Date(clockin.clockedInAt).getMinutes()}
-                        {new Date(clockin.clockedInAt).getHours() % 12 >= 12
-                          ? "pm"
-                          : "am"}
-                      </td>
-  
-                      <td>
-                        {" "}
-                        {new Date(clockin.clockedInAt).getDay()}/
-                        {new Date(clockin.clockedInAt).getMonth()} /
-                        {new Date(clockin.clockedInAt).getFullYear()}
-                      </td>
-                    </tr>
-                  ))
-                }</tr>
+            {!loading
+              ? clockins.map((clockin)=>(
+                <tr key={clockin.staff._id}>
+                <td>{index + 1}</td>
+                <td>{clockin.clockedIn ? <i className="fas fa-check text-success"> </i> : <i className="far fa-exclamation-circle text-warning"></i>}</td>
+                <td>{clockin.clockedIn ? <i className="fas fa-check text-success"> </i> : <i className="far fa-exclamation-circle text-warning"></i>}</td>
+                <td>
+                  {new Date(clockin.createdAt).getHours()}:
+                  {new Date(clockin.createdAt).getMinutes()}
+                  {new Date(clockin.createdAt).getHours() % 12 >= 12
+                    ? "pm"
+                    : "am"}
+                </td>
+
+                <td>
+                  {" "}
+                  {new Date(clockin.createdAt).getDay()}/
+                  {new Date(clockin.createdAt).getMonth()} /
+                  {new Date(clockin.createdAt).getFullYear()}
+                </td>
+              </tr>
               ))
               : showLoading()}
-          {console.log('users', users)}
-          
           </tbody>
         </table>
     </div>

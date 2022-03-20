@@ -4,6 +4,8 @@ import { loadingButton, showLoading } from "../../helpers/loading";
 import {
   clockinAction,
   clockoutAction,
+  getAllClockinsAction,
+  getAllClockoutsAction,
 } from "../../redux/actions/clockinAction";
 import { useHistory } from "react-router-dom";
 import AlertError from "../../components/Alerts/AlertError";
@@ -45,12 +47,14 @@ const Clockin = () => {
     };
     console.log("staffId", staffId);
     dispatch(clockinAction(staffId));
+    dispatch(getAllClockinsAction())
   };
 
   const handleClockout = (e) => {
     e.preventDefault();
     const staffId = { staffId: staffClockinId };
     dispatch(clockoutAction(staffId));
+    dispatch(getAllClockoutsAction())
   };
 
   return (
