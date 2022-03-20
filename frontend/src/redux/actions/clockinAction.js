@@ -22,9 +22,9 @@ export const clockinAction = (staffId) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.put("/api/staff/clockin", staffId, config);
+    const { data } = await axios.post("/api/staff/clockin", staffId, config);
     dispatch({ type: CLOCK_IN_SUCCESS, payload: data });
-    localStorage.setItem("userInfo", JSON.stringify(data));
+    // localStorage.setItem("userInfo", JSON.stringify(data));
   } catch (error) {
     dispatch({
       type: CLOCK_IN_FAIL,
@@ -50,10 +50,10 @@ export const clockoutAction = (staffId) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.put("/api/staff/clockout", staffId, config);
+    const { data } = await axios.post("/api/staff/clockout", staffId, config);
 
     dispatch({ type: CLOCK_OUT_SUCCESS, payload: data });
-    localStorage.setItem("userInfo", JSON.stringify(data));
+    // localStorage.setItem("userInfo", JSON.stringify(data));
   } catch (error) {
     console.log(error.message);
     dispatch({

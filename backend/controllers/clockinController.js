@@ -20,6 +20,7 @@ module.exports.clockInStaff = asyncHandler(async (req, res) => {
     } else {
       const newClockIn = new Clockin({
         staff: req.user._id,
+        staffId: req.body.staffId,
         clockedIn: true,
       });
       const savedClockin = await newClockIn.save();
@@ -83,6 +84,7 @@ module.exports.clockOutStaff = asyncHandler(async (req, res) => {
     } else {
       const newClockOut = new Clockout({
         staff: req.user._id,
+        staffId: req.body.staffId,
         clockedOut: true,
       });
       const savedClockout = await newClockOut.save();

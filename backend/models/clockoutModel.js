@@ -3,6 +3,7 @@ const {ObjectId} = mongoose.Schema.Types
 
 const clockoutSchema = new mongoose.Schema({
     staff: { type: ObjectId, ref: 'Staff' },
+    staffId: {type:String},
     clockedOut: {type:Boolean, default:false}
 }, {timestamps:true})
 
