@@ -6,6 +6,12 @@ import {
   CLOCK_OUT_FAIL,
   CLOCK_OUT_REQUEST,
   CLOCK_OUT_SUCCESS,
+  GET_ALL_CLOCK_INS_REQUEST,
+  GET_ALL_CLOCK_INS_SUCCESS,
+  GET_ALL_CLOCK_INS_FAIL,
+  GET_ALL_CLOCK_OUTS_REQUEST,
+  GET_ALL_CLOCK_OUTS_SUCCESS,
+  GET_ALL_CLOCK_OUTS_FAIL
 } from "../constants/clockinConstants";
 
 export const clockinAction = (staffId) => async (dispatch, getState) => {
@@ -66,7 +72,7 @@ export const clockoutAction = (staffId) => async (dispatch, getState) => {
   }
 };
 
-export const getAllclockinsAction = (staffId) => async (dispatch, getState) => {
+export const getAllclockinsAction = () => async (dispatch, getState) => {
   try {
     dispatch({ type: GET_ALL_CLOCK_INS_REQUEST });
     const {
@@ -80,13 +86,42 @@ export const getAllclockinsAction = (staffId) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.post("/api/staff/clockins", config);
+    const { data } = await axios.get("/api/staff/clockins", config);
 
     dispatch({ type: GET_ALL_CLOCK_INS_SUCCESS, payload: data });
   } catch (error) {
     console.log(error.message);
     dispatch({
       type: GET_ALL_CLOCK_INS_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const getAllclockoutsAction = () => async (dispatch, getState) => {
+  try {
+    dispatch({ type: GET_ALL_CLOCK_OUTS_REQUEST });
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.get("/api/staff/clockouts", config);
+
+    dispatch({ type: GET_ALL_CLOCK_OUTS_SUCCESS, payload: data });
+  } catch (error) {
+    console.log(error.message);
+    dispatch({
+      type: GET_ALL_CLOCK_OUTS_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
