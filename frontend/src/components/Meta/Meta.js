@@ -12,6 +12,6 @@ const Meta = ({ title, description, keywords }) => {
 };
 
 Meta.defaultProps = {
-  title: "Realeaf-Clockin | Online",
+  title: "Clockin-System",
 };
 export default Meta;

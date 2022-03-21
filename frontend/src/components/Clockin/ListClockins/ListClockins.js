@@ -24,12 +24,13 @@ const ListClockins = () => {
               <th>Date</th>
             </tr>
           </thead>
+          {clockins && console.log('clockins',clockins)}
           <tbody>
-            {!loading
-              ? clockins.map((clockin)=>(
+            {clockins
+              ? clockins.clockins.map((clockin, index)=>(
                 <tr key={clockin.staff._id}>
                 <td>{index + 1}</td>
-                <td>{clockin.clockedIn ? <i className="fas fa-check text-success"> </i> : <i className="far fa-exclamation-circle text-warning"></i>}</td>
+                <td>{clockin.clockedIn ? <i className="fas fa-check text-success"> true </i> : <i className="far fa-exclamation-circle text-warning"></i>}</td>
                 <td>{clockin.clockedIn ? <i className="fas fa-check text-success"> </i> : <i className="far fa-exclamation-circle text-warning"></i>}</td>
                 <td>
                   {new Date(clockin.createdAt).getHours()}:
@@ -41,9 +42,7 @@ const ListClockins = () => {
 
                 <td>
                   {" "}
-                  {new Date(clockin.createdAt).getDay()}/
-                  {new Date(clockin.createdAt).getMonth()} /
-                  {new Date(clockin.createdAt).getFullYear()}
+                  {clockin.createdAt.toDateString()}
                 </td>
               </tr>
               ))

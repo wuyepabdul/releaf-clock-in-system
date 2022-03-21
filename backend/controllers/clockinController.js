@@ -22,6 +22,7 @@ module.exports.clockInStaff = asyncHandler(async (req, res) => {
         staff: req.user._id,
         staffId: req.body.staffId,
         clockedIn: true,
+        clockedInAt: todaysDate,
       });
       const savedClockin = await newClockIn.save();
       res.json(savedClockin);
@@ -73,22 +74,36 @@ module.exports.clockInStaff = asyncHandler(async (req, res) => {
 
 module.exports.clockOutStaff = asyncHandler(async (req, res) => {
   try {
-    const clockout = await Clockout.findOne({ staff: req.user._id });
-    if (
-      clockout &&
-      clockout.createdAt.toDateString() === todaysDate.toDateString()
-    ) {
-      res
-        .status(400)
-        .json({ message: "You have already Clocked Out For Today" });
-    } else {
-      const newClockOut = new Clockout({
+    const clockins = await Clockin.find({ staff: req.user._id });
+    if(clockins.length > 0){
+      clockins.map( async (clockin)=>{
+        if (
+          clockin.clockedOut && clockin.clockedOutAt.toDateString() ===
+          todaysDate.toDateString()
+        ) {
+          console.log('condition true')
+          res
+            .status(400)
+            .json({ message: "You have already Clocked Out For Today" });
+        } else {
+          console.log('condition false',clockin)
+
+          clockin.clockedOut = true;
+          clockin.clockedOutAt = todaysDate
+         await clockin.save();
+          res.json({ message: "Clockout successfull" });
+        } 
+      })
+    }else {
+      const newClockin = new Clockin({
         staff: req.user._id,
         staffId: req.body.staffId,
+        clockedIn: false,
         clockedOut: true,
+        clockedOutAt: todaysDate,
       });
-      const savedClockout = await newClockOut.save();
-      res.json(savedClockout);
+     await newClockin.save();
+      res.json({ message: "Clockout successfull" });
     }
   } catch (error) {
     console.log(error.message);

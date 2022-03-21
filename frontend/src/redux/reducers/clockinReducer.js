@@ -1,7 +1,6 @@
 import {
   CLOCK_IN_FAIL,
   CLOCK_IN_REQUEST,
-  CLOCK_IN_RESET,
   CLOCK_IN_SUCCESS,
   CLOCK_OUT_FAIL,
   CLOCK_OUT_REQUEST,
@@ -48,23 +47,23 @@ export const staffClockoutReducer = (state = [], action) => {
   }
 };
 
-export const allClockoutsReducer = (state = [], action) => {
+export const allClockoutsReducer = (state = {}, action) => {
   switch (action.type) {
     case GET_ALL_CLOCK_OUTS_REQUEST:
       return { loading: true };
     case GET_ALL_CLOCK_OUTS_SUCCESS:
       return {
         loading: false,
-        clockins: action.payload
+        clockouts: action.payload
       };
-    case GET_ALL_CLOCK_OUTS_FAILS:
+    case GET_ALL_CLOCK_OUTS_FAIL:
       return { loading: false, error: action.payload };
     default:
       return state;
   }
 };
 
-export const allClockinsReducer = (state = [], action) => {
+export const allClockinsReducer = (state = {}, action) => {
   switch (action.type) {
     case GET_ALL_CLOCK_INS_REQUEST:
       return { loading: true };
@@ -73,7 +72,7 @@ export const allClockinsReducer = (state = [], action) => {
         loading: false,
         clockins: action.payload
       };
-    case GET_ALL_CLOCK_INS_FAILS:
+    case GET_ALL_CLOCK_INS_FAIL:
       return { loading: false, error: action.payload };
     default:
       return state;

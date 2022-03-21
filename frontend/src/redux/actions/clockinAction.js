@@ -87,7 +87,7 @@ export const getAllClockinsAction = () => async (dispatch, getState) => {
     };
 
     const { data } = await axios.get("/api/staff/clockins", config);
-
+    console.log('all clockins', data)
     dispatch({ type: GET_ALL_CLOCK_INS_SUCCESS, payload: data });
   } catch (error) {
     console.log(error.message);
@@ -116,6 +116,7 @@ export const getAllClockoutsAction = () => async (dispatch, getState) => {
     };
 
     const { data } = await axios.get("/api/staff/clockouts", config);
+    console.log('all clockouts', data)
 
     dispatch({ type: GET_ALL_CLOCK_OUTS_SUCCESS, payload: data });
   } catch (error) {
