@@ -7,7 +7,7 @@ const ListClockins = () => {
   const dispatch = useDispatch()
 
   const {allClockins} = useSelector((state)=>state)
-  const {loading, clockins} = allClockins
+  const { clockins} = allClockins
   useEffect(()=>{
     dispatch(getAllClockinsAction())
   },[dispatch])
@@ -18,20 +18,21 @@ const ListClockins = () => {
           <thead>
             <tr>
               <th>S/N</th>
+              <th>Staff</th>
               <th>Clock in</th>
               <th>Clock out</th>
               <th>Time</th>
               <th>Date</th>
             </tr>
           </thead>
-          {clockins && console.log('clockins',clockins)}
           <tbody>
             {clockins
-              ? clockins.clockins.map((clockin, index)=>(
+              ? clockins.map((clockin, index)=>(
                 <tr key={clockin.staff._id}>
                 <td>{index + 1}</td>
-                <td>{clockin.clockedIn ? <i className="fas fa-check text-success"> true </i> : <i className="far fa-exclamation-circle text-warning"></i>}</td>
-                <td>{clockin.clockedIn ? <i className="fas fa-check text-success"> </i> : <i className="far fa-exclamation-circle text-warning"></i>}</td>
+                <td>{clockin.staff.name}</td>
+                <td>{clockin.clockedIn ? <i className="fas fa-check text-success"> </i> : <i className="fas fa-exclamation-circle text-warning"></i>}</td>
+                <td>{clockin.clockedOut ? <i className="fas fa-check text-success"> </i> : <i className="fas fa-exclamation-circle text-danger"></i>}</td>
                 <td>
                   {new Date(clockin.createdAt).getHours()}:
                   {new Date(clockin.createdAt).getMinutes()}
@@ -42,7 +43,7 @@ const ListClockins = () => {
 
                 <td>
                   {" "}
-                  {clockin.createdAt.toDateString()}
+                  {new Date(clockin.createdAt).toDateString()}
                 </td>
               </tr>
               ))

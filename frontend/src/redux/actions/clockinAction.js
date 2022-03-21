@@ -20,7 +20,6 @@ export const clockinAction = (staffId) => async (dispatch, getState) => {
     const {
       userLogin: { userInfo },
     } = getState();
-    console.log("tokenInfo", userInfo);
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -29,9 +28,11 @@ export const clockinAction = (staffId) => async (dispatch, getState) => {
     };
 
     const { data } = await axios.post("/api/staff/clockin", staffId, config);
+    console.log('clockin data', data)
     dispatch({ type: CLOCK_IN_SUCCESS, payload: data });
     // localStorage.setItem("userInfo", JSON.stringify(data));
   } catch (error) {
+    console.log('error',error.message)
     dispatch({
       type: CLOCK_IN_FAIL,
       payload:
@@ -87,7 +88,6 @@ export const getAllClockinsAction = () => async (dispatch, getState) => {
     };
 
     const { data } = await axios.get("/api/staff/clockins", config);
-    console.log('all clockins', data)
     dispatch({ type: GET_ALL_CLOCK_INS_SUCCESS, payload: data });
   } catch (error) {
     console.log(error.message);
@@ -116,7 +116,6 @@ export const getAllClockoutsAction = () => async (dispatch, getState) => {
     };
 
     const { data } = await axios.get("/api/staff/clockouts", config);
-    console.log('all clockouts', data)
 
     dispatch({ type: GET_ALL_CLOCK_OUTS_SUCCESS, payload: data });
   } catch (error) {

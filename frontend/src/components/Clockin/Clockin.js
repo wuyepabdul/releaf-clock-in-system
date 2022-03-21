@@ -5,7 +5,6 @@ import {
   clockinAction,
   clockoutAction,
   getAllClockinsAction,
-  getAllClockoutsAction,
 } from "../../redux/actions/clockinAction";
 import { useHistory } from "react-router-dom";
 import AlertError from "../../components/Alerts/AlertError";
@@ -45,7 +44,8 @@ const Clockin = () => {
     const staffId = {
       staffId: staffClockinId,
     };
-    console.log("staffId", staffId);
+    console.log('staff', staffId)
+
     dispatch(clockinAction(staffId));
     dispatch(getAllClockinsAction())
   };
@@ -53,8 +53,9 @@ const Clockin = () => {
   const handleClockout = (e) => {
     e.preventDefault();
     const staffId = { staffId: staffClockinId };
+    console.log('staff', staffId)
     dispatch(clockoutAction(staffId));
-    dispatch(getAllClockoutsAction())
+    dispatch(getAllClockinsAction())
   };
 
   return (
@@ -80,7 +81,7 @@ const Clockin = () => {
                     value={staffClockinId}
                     onChange={(e) => setStaffClockinId(e.target.value)}
                     id="staffId"
-                    placeholder={userInfo.staffId}
+                    placeholder="e.g, Emma_5935_RF"
                     className="form-control text-center"
                   />
                 </div>

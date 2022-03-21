@@ -27,6 +27,15 @@ module.exports.clockInStaff = asyncHandler(async (req, res) => {
           res.json(savedClockin);
         }
       });
+    }else {
+      const newClockIn = new Clockin({
+        staff: req.user._id,
+        staffId: req.body.staffId,
+        clockedIn: true,
+        clockedInAt: todaysDate,
+      });
+      const savedClockin = await newClockIn.save();
+      res.json(savedClockin);
     }
 
     // if (staff) {
@@ -115,7 +124,7 @@ module.exports.getAllClockinsController = asyncHandler(async (req, res) => {
       .populate("staff", "-password")
       .sort({ createdAt: -1 });
 
-    res.json({ clockins });
+    res.json(clockins);
   } catch (error) {
     res.status(500).json({ message: "Server error, try again later" });
   }
