@@ -9,6 +9,8 @@ import {
 import { useHistory } from "react-router-dom";
 import AlertError from "../../components/Alerts/AlertError";
 import AlertSuccess from "../../components/Alerts/AlertSuccess";
+import { CLOCK_IN_RESET, CLOCK_OUT_RESET } from "../../redux/constants/clockinConstants";
+import { resetMessage } from "../../helpers/reset";
 const Clockin = () => {
   const history = useHistory();
 
@@ -44,18 +46,19 @@ const Clockin = () => {
     const staffId = {
       staffId: staffClockinId,
     };
-    console.log('staff', staffId)
-
-    dispatch(clockinAction(staffId));
-    dispatch(getAllClockinsAction())
+      dispatch(clockinAction(staffId));
+      dispatch(getAllClockinsAction());
+      resetMessage(dispatch,CLOCK_IN_RESET)
   };
 
   const handleClockout = (e) => {
     e.preventDefault();
     const staffId = { staffId: staffClockinId };
-    console.log('staff', staffId)
+    console.log("staff", staffId);
     dispatch(clockoutAction(staffId));
-    dispatch(getAllClockinsAction())
+    dispatch(getAllClockinsAction());
+    resetMessage(dispatch,CLOCK_OUT_RESET)
+
   };
 
   return (
