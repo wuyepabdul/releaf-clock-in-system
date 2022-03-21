@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { isEmail, isEmpty } from "validator";
 import { registerAction } from "../../redux/actions/userActions";
 import { loadingButton } from "../../helpers/loading";
-import Meta from "../../components/Meta/Meta";
 import { USER_REGISTER_RESET } from "../../redux/constants/userConstants";
 import AlertError from "../../components/Alerts/AlertError";
 
@@ -48,7 +47,6 @@ const RegisterScreen = ({ history }) => {
 
   return (
     <div className="container ">
-      <Meta title={"Register Page"} />
       <h1 className="text-center mt-2">Create Account</h1>
 
       <div>

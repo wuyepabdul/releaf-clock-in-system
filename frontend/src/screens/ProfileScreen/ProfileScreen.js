@@ -6,7 +6,6 @@ import {
   updateUserProfileAction,
 } from "../../redux/actions/userActions";
 import { isEmpty } from "validator";
-import Meta from "../../components/Meta/Meta";
 import { USER_UPDATE_PROFILE_RESET } from "../../redux/constants/userConstants";
 import AlertError from "../../components/Alerts/AlertError";
 import { toast } from "react-toastify";
@@ -81,7 +80,6 @@ const ProfileScreen = ({ history }) => {
 
   return (
     <div className="container-fluid">
-      <Meta title={`Profile ${user.name}`} />
       <div className="mt-3 row">
         <div className="col-md-3 mt-3"></div>
         {userLoading ? (

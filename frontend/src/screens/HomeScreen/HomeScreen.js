@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import "./home.css";
-import Meta from "../../components/Meta/Meta";
 import GetCurrentTime from "../../components/GetCurrentTime/GetCurrentTime";
 import Clockin from "../../components/Clockin/Clockin";
 import { useSelector } from "react-redux";
@@ -20,7 +19,6 @@ const HomeScreen = () => {
   }, [userInfo, history]);
   return (
     <div className="container">
-      <Meta />
       <div className="col">
           <h1>
             <GetCurrentTime />

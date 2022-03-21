@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { showLoading } from "../../helpers/loading";
 import { showErrorMessage } from "../../helpers/message";
 import { listUsersAction } from "../../redux/actions/userActions";
-import Meta from "../../components/Meta/Meta";
 
 const UserListScreen = ({ history }) => {
   const dispatch = useDispatch();
@@ -26,7 +25,6 @@ const UserListScreen = ({ history }) => {
 
   return (
     <div className="container  p-5">
-      <Meta title="All Users" />
       <h1 className="text-center mb-5">List of Employees</h1>
       {loading ? (
         showLoading()

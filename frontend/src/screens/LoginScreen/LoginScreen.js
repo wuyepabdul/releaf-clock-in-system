@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadingButton } from "../../helpers/loading";
 import { loginAction } from "../../redux/actions/userActions";
 import { isEmpty } from "validator";
-import Meta from "../../components/Meta/Meta";
 import { toast } from "react-toastify";
 import AlertError from "../../components/Alerts/AlertError";
 
@@ -34,7 +33,6 @@ const LoginScreen = ({ history }) => {
   };
   return (
     <div className="container ">
-      <Meta title={"Login Page"} />
       <h1 className="text-center mt-2">Sign In</h1>
 
       <div>

@@ -1,78 +1,55 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import "./clockin.css";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { showLoading } from "../../../helpers/loading";
+import { getAllClockinsAction } from "../../../redux/actions/clockinAction";
 
-const ListClockins = ({ history }) => {
-  const todayDate = new Date();
+const ListClockins = () => {
+  const dispatch = useDispatch()
 
-  const userFromStorage = JSON.parse(localStorage.getItem("userInfo"));
-
-  const [userInfo, setUserInfo] = useState({});
-
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo: userData } = userLogin;
-
-  useEffect(() => {
-    if (!userData) {
-      history.push("/login");
-    } else {
-      setUserInfo(userData);
-    }
-  }, [userData]);
-
-  const checkIfClocked = (arr) => {
-    arr.find((c) => {
-      c.createdAt = new Date(c.createdAt);
-      if (c.createdAt.getDate() === todayDate.getDate()) {
-        console.log("true");
-      } else {
-        console.log("false");
-      }
-    });
-  };
+  const {allClockins} = useSelector((state)=>state)
+  const { clockins} = allClockins
+  useEffect(()=>{
+    dispatch(getAllClockinsAction())
+  },[dispatch])
   return (
-    <div className="mt-5">
-      <h4 className="center-text"> Today's Clock In</h4>
-      <hr />
-      <table className="table">
-        <thead></thead>
-        <tbody>
-          <tr>
-            <td>{userInfo.name}</td>
-            <td>{userInfo.department}</td>
-            <td>
-              {checkIfClocked(userFromStorage.clockIns) ? (
-                <i className="fas fa-check"> </i>
-              ) : (
-                <i className="fas fa-times"> </i>
-              )}
-            </td>
-            <td>
-              {checkIfClocked(userFromStorage.clockIns) ? (
-                <i className="fas fa-check"> </i>
-              ) : (
-                <i className="fas fa-times"> </i>
-              )}
-            </td>
-            <td></td>
-            <td>
-              {checkIfClocked(userFromStorage.clockIns) ? (
-                <small>
+    <div>
+       <h4 className="text-center">Clock Ins</h4>
+        <table className="table">
+          <thead>
+            <tr>
+              <th>S/N</th>
+              <th>Staff</th>
+              <th>Clock in</th>
+              <th>Clock out</th>
+              <th>Time</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {clockins
+              ? clockins.filter((clockin)=>(
+                <tr key={clockin.staff._id}>
+                <td>{1}</td>
+                <td>{clockin.staff.name}</td>
+                <td>{clockin.clockedIn ? <i className="fas fa-check text-success"> </i> : <i className="fas fa-exclamation-circle text-warning"></i>}</td>
+                <td>{clockin.clockedOut ? <i className="fas fa-check text-success"> </i> : <i className="fas fa-exclamation-circle text-danger"></i>}</td>
+                <td>
+                  {new Date(clockin.createdAt).getHours()}:
+                  {new Date(clockin.createdAt).getMinutes()}
+                  {new Date(clockin.createdAt).getHours() % 12 >= 12
+                    ? "pm"
+                    : "am"}
+                </td>
+
+                <td>
                   {" "}
-                  {userInfo.clockOuts.createdAt.getHour()}:{" "}
-                  {userInfo.clockOuts.createdAt.getMinute()}{" "}
-                </small>
-              ) : (
-                <i className="fas fa-times"> </i>
-              )}
-            </td>
-            <td>
-              {todayDate.getDate()}/{todayDate.getMonth()} /{" "}
-              {todayDate.getFullYear()}{" "}
-            </td>
-          </tr>
-        </tbody>
-      </table>
+                  {new Date(clockin.createdAt).toDateString()}
+                </td>
+              </tr>
+              ))
+              : showLoading()}
+          </tbody>
+        </table>
     </div>
   );
 };
