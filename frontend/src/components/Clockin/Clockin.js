@@ -9,7 +9,10 @@ import {
 import { useHistory } from "react-router-dom";
 import AlertError from "../../components/Alerts/AlertError";
 import AlertSuccess from "../../components/Alerts/AlertSuccess";
-import { CLOCK_IN_RESET, CLOCK_OUT_RESET } from "../../redux/constants/clockinConstants";
+import {
+  CLOCK_IN_RESET,
+  CLOCK_OUT_RESET,
+} from "../../redux/constants/clockinConstants";
 import { resetMessage } from "../../helpers/reset";
 const Clockin = () => {
   const history = useHistory();
@@ -41,24 +44,28 @@ const Clockin = () => {
     setStaffClockinId(userInfo.staffId);
   }, [history, userInfo, dispatch]);
 
+  const fetchClockins = () => {
+    setTimeout(() => {
+      dispatch(getAllClockinsAction());
+    }, 1000);
+  };
+
   const handleClockin = (e) => {
     e.preventDefault();
     const staffId = {
       staffId: staffClockinId,
     };
-      dispatch(clockinAction(staffId));
-      dispatch(getAllClockinsAction());
-      resetMessage(dispatch,CLOCK_IN_RESET)
+    dispatch(clockinAction(staffId));
+    fetchClockins();
+    resetMessage(dispatch, CLOCK_IN_RESET);
   };
 
   const handleClockout = (e) => {
     e.preventDefault();
     const staffId = { staffId: staffClockinId };
-    console.log("staff", staffId);
     dispatch(clockoutAction(staffId));
-    dispatch(getAllClockinsAction());
-    resetMessage(dispatch,CLOCK_OUT_RESET)
-
+    resetMessage(dispatch, CLOCK_OUT_RESET);
+    fetchClockins();
   };
 
   return (

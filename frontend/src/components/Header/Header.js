@@ -322,7 +322,7 @@ const Header = ({ history }) => {
                   <Link class="dropdown-item" to="/"></Link>
                 </li>
                 <li>
-                  <Link class="dropdown-item" to="/">
+                  <Link class="dropdown-item" to="/profile">
                     Profile
                   </Link>
                 </li>
@@ -343,12 +343,12 @@ const Header = ({ history }) => {
               {" "}
               <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                 <li className="nav-item">
-                  <Link to="#" className="nav-link active" aria-current="page">
+                  <Link to="/register" className="nav-link active" aria-current="page">
                     Signup
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link to="#" className="nav-link active" aria-current="page">
+                  <Link to="/login" className="nav-link active" aria-current="page">
                     Signin
                   </Link>
                 </li>
