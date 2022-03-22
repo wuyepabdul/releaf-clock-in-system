@@ -37,45 +37,6 @@ module.exports.clockInStaff = asyncHandler(async (req, res) => {
       const savedClockin = await newClockIn.save();
       res.json(savedClockin);
     }
-
-    // if (staff) {
-    //   // const alreadyClockedIn = staff.clockIns.find(
-    //   //   (c) =>
-    //   //     c.clockedInAt.getDate().toString() ===
-    //   //     currentTime.getDate().toString()
-    //   // );
-
-    //   if (checkClockIn(staff)) {
-    //     res
-    //       .status(400)
-    //       .json({ message: 'You have already Clocked In For Today' });
-    //   } else {
-    //     const clockIn = {
-    //       clockedInAt: currentTime,
-    //       staff: req.user._id,
-    //       clockedIn:true,
-    //     };
-
-    //     staff.clockIns.push(clockIn);
-    //     await staff.save();
-
-    //     res.status(201).json({
-    //       _id: staff._id,
-    //       staffId: staff.staffId,
-    //       name: staff.name,
-    //       slug: staff.slug,
-    //       email: staff.email,
-    //       department: staff.department,
-    //       clockIns: staff.clockIns,
-    //       clockIns: staff.clockIns,
-    //       isAdmin: staff.isAdmin,
-    //       token: generateToken(staff._id),
-    //     });
-    //   }
-    // } else {
-    //   console.log('staff does not exist');
-    //   res.status(404).json({ message: ' Invalid Staff ID' });
-    // }
   } catch (error) {
     console.log(error.message);
     res.status(500).json({ message: "Server error: try again later" });

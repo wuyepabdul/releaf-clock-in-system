@@ -26,10 +26,10 @@ const HomeScreen = () => {
         </div>
      <div className='row'>
        
-        <div className="col-sm-6">
+        <div className="col-md-5 col-sm-6">
           <Clockin />
         </div>
-        <div className="col-sm-6">
+        <div className="col-md-7 col-sm-6">
         <ListClockins />
         </div>
      </div>
