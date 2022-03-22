@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { isEmail, isEmpty } from "validator";
 import { registerAction } from "../../redux/actions/userActions";
@@ -7,7 +7,9 @@ import { loadingButton } from "../../helpers/loading";
 import { USER_REGISTER_RESET } from "../../redux/constants/userConstants";
 import AlertError from "../../components/Alerts/AlertError";
 
-const RegisterScreen = ({ history }) => {
+const RegisterScreen = () => {
+  const navigate = useNavigate()
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -22,10 +24,9 @@ const RegisterScreen = ({ history }) => {
   useEffect(() => {
     dispatch({ type: USER_REGISTER_RESET });
     if (userInfo) {
-      history.push("/");
-      console.log("userInfo", userInfo);
+      navigate("/");
     }
-  }, [history, dispatch, userInfo]);
+  }, [navigate, dispatch, userInfo]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -56,7 +57,7 @@ const RegisterScreen = ({ history }) => {
             {message && <AlertError alertMessage={message} />}
             <form onSubmit={submitHandler}>
               <div className="col mb-3 ">
-                <label for="name" className=" form-label">
+                <label htmlFor="name" className=" form-label">
                   Name
                 </label>
                 <div>
@@ -72,7 +73,7 @@ const RegisterScreen = ({ history }) => {
                 </div>
               </div>
               <div className="col mb-3 ">
-                <label for="email" className=" form-label">
+                <label htmlFor="email" className=" form-label">
                   Email
                 </label>
                 <div>
@@ -88,7 +89,7 @@ const RegisterScreen = ({ history }) => {
                 </div>
               </div>
               <div className="col mb-3 ">
-                <label for="password" className="form-label">
+                <label htmlFor="password" className="form-label">
                   Password
                 </label>
                 <div className=" l">
@@ -104,7 +105,7 @@ const RegisterScreen = ({ history }) => {
                 </div>
               </div>
               <div className="col mb-3 ">
-                <label for="department" className=" form-label">
+                <label htmlFor="department" className=" form-label">
                   Department
                 </label>
                 <div>

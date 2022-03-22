@@ -11,7 +11,6 @@ const UserRoute = ({ children, ...rest }) => {
     <Route {...rest} />
   ) : (
     <div>
-      {" "}
       <RedirectToHome />{" "}
     </div>
   );

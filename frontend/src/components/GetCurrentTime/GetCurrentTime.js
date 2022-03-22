@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { withRouter } from "react-router-dom";
 import getCurrentTime from "../../utils/timer";
 
-const GetCurrentTime = ({ history }) => {
+const GetCurrentTime = () => {
   const [time, setTime] = useState({
     hour: 0,
     minute: 0,
@@ -37,4 +36,4 @@ const GetCurrentTime = ({ history }) => {
   );
 };
 
-export default withRouter(GetCurrentTime);
+export default GetCurrentTime;

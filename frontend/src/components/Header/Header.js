@@ -307,28 +307,28 @@ const Header = ({ history }) => {
             </li>
           </ul>
           {userInfo ? (
-            <div class="btn-group">
+            <div className="btn-group">
               <button
                 type="button"
-                class="btn btn-secondary dropdown-toggle"
+                className="btn btn-secondary dropdown-toggle"
                 data-bs-toggle="dropdown"
                 data-bs-display="static"
                 aria-expanded="false"
               >
                 User Info
               </button>
-              <ul class="dropdown-menu dropdown-menu-start dropdown-menu-lg-end">
+              <ul className="dropdown-menu dropdown-menu-start dropdown-menu-lg-end">
                 <li>
-                  <Link class="dropdown-item" to="/"></Link>
+                  <Link className="dropdown-item" to="/"></Link>
                 </li>
                 <li>
-                  <Link class="dropdown-item" to="/profile">
+                  <Link className="dropdown-item" to="/profile">
                     Profile
                   </Link>
                 </li>
                 <li>
                   <Link
-                    class="dropdown-item bg-warning"
+                    className="dropdown-item bg-warning"
                     type="button"
                     onClick={logoutHandler}
                     to="#"

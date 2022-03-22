@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
 import HomeScreen from "./screens/HomeScreen/HomeScreen";
@@ -16,13 +16,13 @@ const App = () => {
     <BrowserRouter>
       <Header />
       <ToastContainer />
-      <main>
-        <UserRoute exact path="/" component={HomeScreen} />
-        <Route exact path="/login" component={LoginScreen} />
-        <Route exact path="/register" component={RegisterScreen} />
-        <UserRoute exact path="/profile" component={ProfileScreen} />
-        <UserRoute exact path="/staff/list" component={UserListScreen} />
-      </main>
+      <Routes>
+        <Route exact path="/" element={<HomeScreen />} />
+        <Route exact path="/login" element={<LoginScreen />} />
+        <Route exact path="/register" element={<RegisterScreen />} />
+        <Route exact path="/profile" element={<ProfileScreen />} />
+        <Route exact path="/staff/list" element={<UserListScreen />} />
+      </Routes>
       <Footer />
     </BrowserRouter>
   );

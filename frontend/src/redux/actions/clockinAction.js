@@ -31,7 +31,6 @@ export const clockinAction = (staffId) => async (dispatch, getState) => {
     };
 
     const { data } = await axios.post("/api/staff/clockin", staffId, config);
-    console.log('clockin data', data)
     dispatch({ type: CLOCK_IN_SUCCESS, payload: data });
     // localStorage.setItem("userInfo", JSON.stringify(data));
   } catch (error) {

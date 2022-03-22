@@ -3,20 +3,20 @@ import "./home.css";
 import GetCurrentTime from "../../components/GetCurrentTime/GetCurrentTime";
 import Clockin from "../../components/Clockin/Clockin";
 import { useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import TodayClockins from "../../components/Clockin/ListClockins/TodayClockins";
 
 const HomeScreen = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
   useEffect(() => {
     if (userInfo === null) {
-      history.push("/login");
+      navigate("/login");
     }
-  }, [userInfo, history]);
+  }, [userInfo, navigate]);
   return (
     <div className="container">
       <div className="row text-center">

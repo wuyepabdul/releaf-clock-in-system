@@ -9,8 +9,10 @@ import { isEmpty } from "validator";
 import { USER_UPDATE_PROFILE_RESET } from "../../redux/constants/userConstants";
 import AlertError from "../../components/Alerts/AlertError";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
-const ProfileScreen = ({ history }) => {
+const ProfileScreen = () => {
+  const navigate = useNavigate()
   const [userProfileData, setUserProfileData] = useState({
     name: "",
     email: "",
@@ -36,10 +38,10 @@ const ProfileScreen = ({ history }) => {
       toast.success(uploadSuccess);
       dispatch({ type: USER_UPDATE_PROFILE_RESET });
       dispatch(getUserDetailsAction());
-      history.push("/");
+      navigate("/");
     }
     if (!userInfo) {
-      history.push("/login");
+      navigate("/login");
     } else {
       if (user.name === undefined || !user.name) {
         dispatch(getUserDetailsAction());
@@ -52,7 +54,7 @@ const ProfileScreen = ({ history }) => {
         });
       }
     }
-  }, [dispatch, history, userInfo, user, uploadSuccess]);
+  }, [dispatch, navigate, userInfo, user, uploadSuccess]);
 
   const handleChange = (e) => {
     setUserProfileData({
@@ -93,7 +95,7 @@ const ProfileScreen = ({ history }) => {
 
               <form onSubmit={submitHandler}>
                 <div className="col mb-3 ">
-                  <label for="name" className="col-sm-2 col-form-label">
+                  <label htmlFor="name" className="col-sm-2 col-form-label">
                     Name
                   </label>
                   <div>
@@ -108,7 +110,7 @@ const ProfileScreen = ({ history }) => {
                   </div>
                 </div>
                 <div className="col mb-3 ">
-                  <label for="staffId" className="col-sm-2 col-form-label">
+                  <label htmlFor="staffId" className="col-sm-2 col-form-label">
                     Staff ID
                   </label>
                   <div>
@@ -122,7 +124,7 @@ const ProfileScreen = ({ history }) => {
                   </div>
                 </div>
                 <div className="col mb-3 ">
-                  <label for="email" className="col-sm-2 col-form-label">
+                  <label htmlFor="email" className="col-sm-2 col-form-label">
                     Email
                   </label>
                   <div>
@@ -137,7 +139,7 @@ const ProfileScreen = ({ history }) => {
                 </div>
 
                 <div className="col mb-3 ">
-                  <label for="department" className="col-sm-2 col-form-label">
+                  <label htmlFor="department" className="col-sm-2 col-form-label">
                     Department
                   </label>
                   <div>

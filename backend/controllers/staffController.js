@@ -1,5 +1,6 @@
 const asyncHandler = require('express-async-handler');
 const { checkClockIn } = require('../helpers/checkClockin.js');
+const Clockin = require('../models/clockinModel.js');
 const Staff = require('../models/staffModel.js');
 const generateStaffId = require('../utils/generateStaffId.js');
 const generateToken = require('../utils/generateToken.js');
@@ -45,13 +46,22 @@ module.exports.getStaffProfileController = asyncHandler(async (req, res) => {
 module.exports.updateStaffProfileController = asyncHandler(async (req, res) => {
   try {
     const staff = await Staff.findById(req.user._id);
-
+    const staffClockins = await Clockin.find({ staffId: req.user.staffId });
+    console.log('staff clockins',staffClockins)
     if (staff) {
+      const generatedId = generateStaffId(req.body.name.split(' ')[0]) || staff.staffId;
       staff.name = req.body.name || staff.name;
-      staff.staffId =
-        generateStaffId(req.body.name.split(' ')[0]) || staff.staffId;
+      staff.staffId = generatedId;
+        
       staff.email = req.body.email || staff.email;
       staff.department = req.body.department || staff.department;
+
+      if(staffClockins.length > 0){
+        staffClockins.map(async (updatedClockin)=>{
+          updatedClockin.staff.staffId = generatedId;
+          await updatedClockin.save()
+        })
+      } 
 
       const updatedStaff = await staff.save();
       res.status(201).json({
@@ -62,7 +72,6 @@ module.exports.updateStaffProfileController = asyncHandler(async (req, res) => {
         email: updatedStaff.email,
         department: updatedStaff.department,
         clockIns: updatedStaff.clockIns,
-        clockOuts: updatedStaff.clockOuts,
         isAdmin: updatedStaff.isAdmin,
         token: generateToken(updatedStaff._id),
       });

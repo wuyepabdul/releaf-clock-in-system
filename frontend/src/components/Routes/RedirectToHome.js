@@ -1,12 +1,13 @@
 import React, { useEffect } from "react";
-import { withRouter } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const RedirectToHome = ({ history }) => {
+const RedirectToHome = () => {
+  const navigate = useNavigate
   useEffect(() => {
-    history.push("/login");
-  }, [history]);
+    navigate("/login");
+  }, [navigate]);
 
   return <div></div>;
 };
 
-export default withRouter(RedirectToHome);
+export default RedirectToHome;

@@ -4,19 +4,18 @@ import { loadingButton, showLoading } from "../../helpers/loading";
 import {
   clockinAction,
   clockoutAction,
-  getAllClockinsAction,
   getTodaysClockinsAction,
 } from "../../redux/actions/clockinAction";
-import { useHistory } from "react-router-dom";
-import AlertError from "../../components/Alerts/AlertError";
-import AlertSuccess from "../../components/Alerts/AlertSuccess";
+import { useNavigate } from "react-router-dom";
+import AlertError from "../Alerts/AlertError";
+import AlertSuccess from "../Alerts/AlertSuccess";
 import {
   CLOCK_IN_RESET,
   CLOCK_OUT_RESET,
 } from "../../redux/constants/clockinConstants";
 import { resetMessage } from "../../helpers/reset";
 const Clockin = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
@@ -40,10 +39,11 @@ const Clockin = () => {
 
   useEffect(() => {
     if (!userInfo) {
-      history.push("/login");
+      navigate("/login");
+    }else{
+      setStaffClockinId(userInfo.staffId);
     }
-    setStaffClockinId(userInfo.staffId);
-  }, [history, userInfo, dispatch]);
+  }, [navigate, userInfo, dispatch]);
 
   const fetchClockins = () => {
     setTimeout(() => {

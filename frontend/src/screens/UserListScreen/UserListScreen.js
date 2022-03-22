@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { showLoading } from "../../helpers/loading";
 import { showErrorMessage } from "../../helpers/message";
@@ -31,7 +30,7 @@ const UserListScreen = ({ history }) => {
       ) : error ? (
         showErrorMessage(error)
       ) : (
-        <Table>
+        <table>
           <thead>
             <tr>
               <th> S/N</th>
@@ -52,7 +51,7 @@ const UserListScreen = ({ history }) => {
               </tr>
             ))}
           </tbody>
-        </Table>
+        </table>
       )}
     </div>
   );

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loadingButton } from "../../helpers/loading";
 import { loginAction } from "../../redux/actions/userActions";
@@ -7,7 +7,8 @@ import { isEmpty } from "validator";
 import { toast } from "react-toastify";
 import AlertError from "../../components/Alerts/AlertError";
 
-const LoginScreen = ({ history }) => {
+const LoginScreen = () => {
+  const navigate = useNavigate()
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,9 +18,9 @@ const LoginScreen = ({ history }) => {
 
   useEffect(() => {
     if (userInfo) {
-      history.push("/");
+      navigate("/");
     }
-  }, [history, userInfo]);
+  }, [navigate, userInfo]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -41,7 +42,7 @@ const LoginScreen = ({ history }) => {
             {error && <AlertError alertMessage={error} />}
             <form onSubmit={submitHandler}>
               <div className="col mb-3 ">
-                <label for="email" className=" form-label">
+                <label htmlFor="email" className=" form-label">
                   Email
                 </label>
                 <div>
@@ -57,7 +58,7 @@ const LoginScreen = ({ history }) => {
                 </div>
               </div>
               <div className="col mb-3 ">
-                <label for="password" className="form-label">
+                <label htmlFor="password" className="form-label">
                   Password
                 </label>
                 <div className=" l">
