@@ -79,6 +79,25 @@ module.exports.clockOutStaff = asyncHandler(async (req, res) => {
   }
 });
 
+
+module.exports.getTodaysClockinsController = asyncHandler(async (req, res) => {
+  try {
+    const clockins = await Clockin.find({})
+      .populate("staff", "-password")
+      .sort({ createdAt: -1 });
+
+      const result = clockins.filter((clockin) => {
+        const clockinDate = new Date(clockin.createdAt);
+        return clockinDate.toDateString() === todaysDate.toDateString();
+      });
+      console.log('resuklt',result)
+    res.json(result);
+  } catch (error) {
+    res.status(500).json({ message: "Server error, try again later" });
+  }
+});
+
+
 module.exports.getAllClockinsController = asyncHandler(async (req, res) => {
   try {
     const clockins = await Clockin.find({})
