@@ -50,18 +50,21 @@ module.exports.updateStaffProfileController = asyncHandler(async (req, res) => {
     console.log('staff clockins',staffClockins)
     if (staff) {
       const generatedId = generateStaffId(req.body.name.split(' ')[0]) || staff.staffId;
+
+      if(staffClockins.length > 0){
+        staffClockins.forEach(async (updatedClockin)=>{
+          updatedClockin.staffId = generatedId;
+          await updatedClockin.save()
+        })
+      } 
+
       staff.name = req.body.name || staff.name;
       staff.staffId = generatedId;
         
       staff.email = req.body.email || staff.email;
       staff.department = req.body.department || staff.department;
 
-      if(staffClockins.length > 0){
-        staffClockins.map(async (updatedClockin)=>{
-          updatedClockin.staff.staffId = generatedId;
-          await updatedClockin.save()
-        })
-      } 
+      
 
       const updatedStaff = await staff.save();
       res.status(201).json({
