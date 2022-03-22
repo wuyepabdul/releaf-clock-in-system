@@ -26,7 +26,7 @@ router.get("/list", protect, getAllStaffController);
 
 router.get("/clockins", getAllClockinsController);
 
-router.get("/todays-clockins", getAllClockinsController);
+router.get("/todays-clockins", getTodaysClockinsController);
 
 router.get("/clockouts", getAllClockoutsController);
 

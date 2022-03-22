@@ -90,7 +90,6 @@ module.exports.getTodaysClockinsController = asyncHandler(async (req, res) => {
         const clockinDate = new Date(clockin.createdAt);
         return clockinDate.toDateString() === todaysDate.toDateString();
       });
-      console.log('resuklt',result)
     res.json(result);
   } catch (error) {
     res.status(500).json({ message: "Server error, try again later" });

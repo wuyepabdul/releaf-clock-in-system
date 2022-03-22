@@ -11,7 +11,10 @@ import {
   GET_ALL_CLOCK_INS_FAIL,
   GET_ALL_CLOCK_OUTS_REQUEST,
   GET_ALL_CLOCK_OUTS_SUCCESS,
-  GET_ALL_CLOCK_OUTS_FAIL
+  GET_ALL_CLOCK_OUTS_FAIL,
+  GET_TODAYS_CLOCK_INS_REQUEST,
+  GET_TODAYS_CLOCK_INS_SUCCESS,
+  GET_TODAYS_CLOCK_INS_FAIL
 } from "../constants/clockinConstants";
 
 export const clockinAction = (staffId) => async (dispatch, getState) => {
@@ -72,6 +75,35 @@ export const clockoutAction = (staffId) => async (dispatch, getState) => {
     });
   }
 };
+
+export const getTodaysClockinsAction = () => async (dispatch, getState) => {
+  try {
+    dispatch({ type: GET_TODAYS_CLOCK_INS_REQUEST });
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.get("/api/staff/todays-clockins", config);
+    dispatch({ type: GET_TODAYS_CLOCK_INS_SUCCESS, payload: data });
+  } catch (error) {
+    console.log(error.message);
+    dispatch({
+      type: GET_TODAYS_CLOCK_INS_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
 
 export const getAllClockinsAction = () => async (dispatch, getState) => {
   try {

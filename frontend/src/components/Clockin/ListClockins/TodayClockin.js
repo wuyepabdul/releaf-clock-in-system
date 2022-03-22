@@ -7,8 +7,8 @@ import {filterClockins} from "../../../helpers/filter"
 const ListClockins = () => {
   const dispatch = useDispatch();
 
-  const { allClockins } = useSelector((state) => state);
-  const { clockins } = allClockins;
+  const { todaysClockins } = useSelector((state) => state);
+  const { clockins } = todaysClockins;
   useEffect(() => {
     dispatch(getAllClockinsAction());
   }, [dispatch]);
