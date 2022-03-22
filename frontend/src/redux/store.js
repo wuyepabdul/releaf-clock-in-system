@@ -3,9 +3,9 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
 import {
   allClockinsReducer,
-  allClockoutsReducer,
   staffClockinReducer,
   staffClockoutReducer,
+  todaysClockinsReducer,
 } from "./reducers/clockinReducer";
 
 import {
@@ -25,7 +25,7 @@ const reducers = combineReducers({
   staffClockin: staffClockinReducer,
   staffClockout: staffClockoutReducer,
   allClockins:allClockinsReducer,
-  allClockouts:allClockoutsReducer
+  todaysClockins:todaysClockinsReducer
 });
 
 const userInfoFromLocalStorage = localStorage.getItem("userInfo")

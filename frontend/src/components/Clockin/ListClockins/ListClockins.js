@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { showLoading } from "../../../helpers/loading";
 import { getAllClockinsAction } from "../../../redux/actions/clockinAction";
-import {filterClockins} from "../../../helpers/filter"
 
 const ListClockins = () => {
   const dispatch = useDispatch();
@@ -26,7 +25,6 @@ const ListClockins = () => {
           </tr>
         </thead>
         <tbody>
-          {clockins && console.log(filterClockins(clockins))}
           {clockins
             ? clockins.map((clockin, index) => (
                 <tr key={clockin.staff._id}>

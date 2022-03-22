@@ -5,6 +5,7 @@ import {
   clockinAction,
   clockoutAction,
   getAllClockinsAction,
+  getTodaysClockinsAction,
 } from "../../redux/actions/clockinAction";
 import { useHistory } from "react-router-dom";
 import AlertError from "../../components/Alerts/AlertError";
@@ -46,7 +47,7 @@ const Clockin = () => {
 
   const fetchClockins = () => {
     setTimeout(() => {
-      dispatch(getAllClockinsAction());
+      dispatch(getTodaysClockinsAction());
     }, 1000);
   };
 
@@ -64,69 +65,62 @@ const Clockin = () => {
     e.preventDefault();
     const staffId = { staffId: staffClockinId };
     dispatch(clockoutAction(staffId));
-    resetMessage(dispatch, CLOCK_OUT_RESET);
     fetchClockins();
+    resetMessage(dispatch, CLOCK_OUT_RESET);
+    
   };
 
   return (
     <div data-test="clockin-component" className="container">
-      <div>
-        <div className="row  h-80 d-flex justify-content-center align-items-center">
-          <div className="col-md-8 mt-2 ">
-            <form>
-              {clockinSuccess && <AlertSuccess alertMessage={clockinSuccess} />}
-              {clockinError && <AlertError alertMessage={clockinError} />}
-              {clockoutSuccess && (
-                <AlertSuccess alertMessage={clockoutSuccess} />
-              )}
-              {clockoutError && <AlertError alertMessage={clockoutError} />}
-              <div className=" mb-3 ">
-                <div>
-                  <label htmlFor="staffId" className=" form-label mb-3">
-                    Clockin with your StaffID
-                  </label>
-                  <input
-                    type="text"
-                    name="staffId"
-                    value={staffClockinId}
-                    onChange={(e) => setStaffClockinId(e.target.value)}
-                    id="staffId"
-                    placeholder="e.g, Emma_5935_RF"
-                    className="form-control text-center"
-                  />
-                </div>
-              </div>
-
-              <div className="col mb-3 ">
-                {clockinLoading ? (
-                  showLoading()
-                ) : (
-                  <button
-                    type="submit"
-                    onClick={handleClockin}
-                    className="btn btn-primary form-control"
-                  >
-                    Clock In
-                  </button>
-                )}
-              </div>
-              <div className="col mb-3 ">
-                {clockoutLoading ? (
-                  loadingButton()
-                ) : (
-                  <button
-                    type="submit"
-                    onClick={handleClockout}
-                    className="btn btn-warning form-control"
-                  >
-                    Clock Out
-                  </button>
-                )}
-              </div>
-            </form>
+      <form>
+        {clockinSuccess && <AlertSuccess alertMessage={clockinSuccess} />}
+        {clockinError && <AlertError alertMessage={clockinError} />}
+        {clockoutSuccess && <AlertSuccess alertMessage={clockoutSuccess} />}
+        {clockoutError && <AlertError alertMessage={clockoutError} />}
+        <div className=" mb-3 ">
+          <div>
+            <label htmlFor="staffId" className=" form-label mb-3">
+              Clockin with your StaffID
+            </label>
+            <input
+              type="text"
+              name="staffId"
+              value={staffClockinId}
+              onChange={(e) => setStaffClockinId(e.target.value)}
+              id="staffId"
+              placeholder="e.g, Emma_5935_RF"
+              className="form-control text-center"
+            />
           </div>
         </div>
-      </div>
+
+        <div className="col mb-3 ">
+          {clockinLoading ? (
+            showLoading()
+          ) : (
+            <button
+              type="submit"
+              onClick={handleClockin}
+              className="btn btn-primary form-control"
+            >
+              Clock In
+            </button>
+          )}
+        </div>
+        <div className="col mb-3 ">
+          {clockoutLoading ? (
+            loadingButton()
+          ) : (
+            <button
+              type="submit"
+              onClick={handleClockout}
+              className="btn btn-warning form-control"
+            >
+              Clock Out
+            </button>
+          )}
+        </div>
+      </form>
     </div>
   );
 };

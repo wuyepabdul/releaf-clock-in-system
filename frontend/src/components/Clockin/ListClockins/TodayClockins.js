@@ -1,33 +1,32 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { showLoading } from "../../../helpers/loading";
-import { getAllClockinsAction } from "../../../redux/actions/clockinAction";
+import { getTodaysClockinsAction } from "../../../redux/actions/clockinAction";
 import {filterClockins} from "../../../helpers/filter"
 
-const ListClockins = () => {
+const TodayClockins = () => {
   const dispatch = useDispatch();
 
   const { todaysClockins } = useSelector((state) => state);
   const { clockins } = todaysClockins;
   useEffect(() => {
-    dispatch(getAllClockinsAction());
+    dispatch(getTodaysClockinsAction());
   }, [dispatch]);
   return (
-    <div>
-      <h4 className="text-center">Clock Ins</h4>
-      <table className="table">
+    <table className="table table-striped">
         <thead>
           <tr>
             <th>S/N</th>
             <th>Staff</th>
-            <th>Clock in</th>
-            <th>Clock out</th>
+            <th>Clockin</th>
+            <th>Clockout</th>
             <th>Date</th>
           </tr>
         </thead>
-        <tbody>
-          {clockins
-            ? filterClockins(clockins).map((clockin, index) => (
+        <tbody className="">
+          {clockins && clockins.length === 0 && <h1 className='text-info'>No Clockins</h1> }
+          {clockins && clockins.length !== 0
+            ? clockins.map((clockin, index) => (
                 <tr key={clockin.staff._id}>
                   <td>{index + 1}</td>
                   <td>{clockin.staff.name}</td>
@@ -47,11 +46,10 @@ const ListClockins = () => {
                   <td> {new Date(clockin.createdAt).toDateString()}</td>
                 </tr>
               ))
-            : showLoading()}
+            : <div>{showLoading()}</div>}
         </tbody>
       </table>
-    </div>
   );
 };
 
-export default ListClockins;
+export default TodayClockins;

@@ -28,10 +28,11 @@ const GetCurrentTime = ({ history }) => {
 
   return (
     <div className="container p-5">
-      <h1>
-        {" "}
-        {time.hour} : {time.minute}: {time.second} {time.ampm}{" "}
+      <h1 className="mb-2">
+        {new Date().toDateString()}
+        
       </h1>
+      <h2>{time.hour} : {time.minute}: {time.second} {time.ampm}{" "}</h2>
     </div>
   );
 };

@@ -13,9 +13,10 @@ module.exports.clockInStaff = asyncHandler(async (req, res) => {
     if (clockins.length > 0) {
       clockins.map(async (clockin) => {
         if (clockin.createdAt.toDateString() === todaysDate.toDateString()) {
-          res
+         res
             .status(400)
             .json({ message: "You have already Clocked In For Today" });
+            return
         } else {
           const newClockIn = new Clockin({
             staff: req.user._id,
@@ -24,7 +25,7 @@ module.exports.clockInStaff = asyncHandler(async (req, res) => {
             clockedInAt: todaysDate,
           });
           const savedClockin = await newClockIn.save();
-          res.json(savedClockin);
+          return res.json(savedClockin);
         }
       });
     }else {
@@ -35,11 +36,11 @@ module.exports.clockInStaff = asyncHandler(async (req, res) => {
         clockedInAt: todaysDate,
       });
       const savedClockin = await newClockIn.save();
-      res.json(savedClockin);
+      return res.json(savedClockin);
     }
   } catch (error) {
     console.log(error.message);
-    res.status(500).json({ message: "Server error: try again later" });
+    return res.status(500).json({ message: "Server error: try again later" });
   }
 });
 
@@ -52,14 +53,14 @@ module.exports.clockOutStaff = asyncHandler(async (req, res) => {
           clockin.clockedOut &&
           clockin.clockedOutAt.toDateString() === todaysDate.toDateString()
         ) {
-          res
+         return res
             .status(400)
             .json({ message: "You have already Clocked Out For Today" });
         } else {
           clockin.clockedOut = true;
           clockin.clockedOutAt = todaysDate;
           await clockin.save();
-          res.json({ message: "Clockout successfull" });
+          return res.status(201).json({ message: "Clockout successfull" });
         }
       });
     } else {
@@ -71,7 +72,7 @@ module.exports.clockOutStaff = asyncHandler(async (req, res) => {
         clockedOutAt: todaysDate,
       });
       await newClockin.save();
-      res.json({ message: "Clockout successfull" });
+     return res.json({ message: "Clockout successfull" });
     }
   } catch (error) {
     console.log(error.message);
