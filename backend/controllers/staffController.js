@@ -1,5 +1,4 @@
 const asyncHandler = require('express-async-handler');
-const { checkClockIn } = require('../helpers/checkClockin.js');
 const Clockin = require('../models/clockinModel.js');
 const Staff = require('../models/staffModel.js');
 const generateStaffId = require('../utils/generateStaffId.js');
@@ -47,7 +46,6 @@ module.exports.updateStaffProfileController = asyncHandler(async (req, res) => {
   try {
     const staff = await Staff.findById(req.user._id);
     const staffClockins = await Clockin.find({ staffId: req.user.staffId });
-    console.log('staff clockins',staffClockins)
     if (staff) {
       const generatedId = generateStaffId(req.body.name.split(' ')[0]) || staff.staffId;
 
