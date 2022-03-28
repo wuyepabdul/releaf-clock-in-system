@@ -5,18 +5,21 @@ import Clockin from "../../components/Clockin/Clockin";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import TodayClockins from "../../components/Clockin/ListClockins/TodayClockins";
+import { tokenIsExpired } from "../../helpers/auth";
 
-const HomeScreen = () => {
+const HomeScreen = ({props}) => {
   const navigate = useNavigate();
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
   useEffect(() => {
-    if (userInfo === null) {
-      navigate("/login");
+    console.log('props', props)
+    if (tokenIsExpired(userInfo.token)) {
+      // navigate("/login");
+      console.log('token', tokenIsExpired(userInfo.token))
     }
-  }, [userInfo, navigate]);
+  }, [userInfo.token]);
   return (
     <div className="container">
       <div className="row text-center">

@@ -1,24 +1,11 @@
-import { setCookie, deleteCookie } from "./cookies";
-import {
-  deleteLocalStorage,
-  getUserLocalStorage,
-  setUserLocalStorage,
-} from "./localStorage";
 
-export const setAuthentication = (token, user) => {
-  setCookie("token", token);
-  setUserLocalStorage("user", user);
-};
-
-export const isAuthenticated = () => {
-  if (getUserLocalStorage("user")) {
-    return getUserLocalStorage("user");
-  } else {
-    return false;
+const currentTime = new Date().getTime())
+  if(decodedToken.exp < currentTime.getTime()){
+    isExpired = true
+    console.log('isExpired', isExpired)
+    return isExpired
+  }else {
+    console.log('isExpired',isExpired)
+    return isExpired
   }
-};
-
-export const logout = () => {
-  deleteLocalStorage("user");
-  deleteCookie("token");
-};
+}
