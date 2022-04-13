@@ -1,11 +1,15 @@
+import jwt from 'jwt-decode'
 
-const currentTime = new Date().getTime())
-  if(decodedToken.exp < currentTime.getTime()){
-    isExpired = true
-    console.log('isExpired', isExpired)
-    return isExpired
-  }else {
-    console.log('isExpired',isExpired)
-    return isExpired
-  }
+export const tokenIsExpired = (token, currentTime) => {
+  const decodedToken = jwt(token);
+  console.log('token time', decodedToken.exp)
+  console.log('current time', currentTime)
+  // if(decodedToken.exp < currentTime){
+  //   console.log('true')
+  //   return true
+  // }else {
+  //   console.log('false')
+
+  //   return false
+  // }
 }

@@ -6,6 +6,7 @@ import { loginAction } from "../../redux/actions/userActions";
 import { isEmpty } from "validator";
 import { toast } from "react-toastify";
 import AlertError from "../../components/Alerts/AlertError";
+import { tokenIsExpired } from "../../helpers/auth";
 
 const LoginScreen = () => {
   const navigate = useNavigate()
@@ -16,11 +17,13 @@ const LoginScreen = () => {
   const userLogin = useSelector((state) => state.userLogin);
   const { error, loading, userInfo } = userLogin;
 
+  const currentTime = new Date().getTime();
+
   useEffect(() => {
-    if (userInfo) {
+    if ( userInfo && !tokenIsExpired(userInfo.token, currentTime)) {
       navigate("/");
     }
-  }, [navigate, userInfo]);
+  }, [navigate, userInfo, currentTime]);
 
   const submitHandler = (e) => {
     e.preventDefault();

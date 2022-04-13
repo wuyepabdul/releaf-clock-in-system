@@ -21,15 +21,21 @@ const App = () => {
       <Header />
       <ToastContainer />
       <Routes>
-        <Route
+        {userInfo && <>
+          <Route
           exact
           path="/"
-          element={userInfo ? <HomeScreen /> : <Navigate to="/login" />}
+          element={ <HomeScreen /> }
         />
-        <Route exact path="/login" element={<LoginScreen />} />
-        <Route exact path="/register" element={<RegisterScreen />} />
         <Route exact path="/profile" element={<ProfileScreen />} />
         <Route exact path="/staff/list" element={<UserListScreen />} />
+
+        </>}
+        
+        <Route exact path="/login" element={<LoginScreen />} />
+        <Route exact path="/register" element={<RegisterScreen />} />
+        
+        <Route path='*' element={<Navigate to={userInfo ? '/' : 'login' } />} />
       </Routes>
       <Footer />
     </BrowserRouter>

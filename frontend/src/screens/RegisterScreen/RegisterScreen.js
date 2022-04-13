@@ -6,6 +6,7 @@ import { registerAction } from "../../redux/actions/userActions";
 import { loadingButton } from "../../helpers/loading";
 import { USER_REGISTER_RESET } from "../../redux/constants/userConstants";
 import AlertError from "../../components/Alerts/AlertError";
+import { tokenIsExpired } from "../../helpers/auth";
 
 const RegisterScreen = () => {
   const navigate = useNavigate()
@@ -21,13 +22,16 @@ const RegisterScreen = () => {
   const userRegister = useSelector((state) => state.userRegister);
   const { error, loading, userInfo } = userRegister;
 
+  const currentTime = new Date().getTime();
+
   useEffect(() => {
     dispatch({ type: USER_REGISTER_RESET });
-    if (userInfo) {
+    if ( userInfo && !tokenIsExpired(userInfo.token, currentTime)) {
       navigate("/");
     }
-  }, [navigate, dispatch, userInfo]);
+  }, [navigate, dispatch, userInfo, currentTime]);
 
+ 
   const submitHandler = (e) => {
     e.preventDefault();
 

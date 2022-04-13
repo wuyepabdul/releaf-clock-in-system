@@ -7,19 +7,20 @@ import { useNavigate } from "react-router-dom";
 import TodayClockins from "../../components/Clockin/ListClockins/TodayClockins";
 import { tokenIsExpired } from "../../helpers/auth";
 
-const HomeScreen = ({props}) => {
+const HomeScreen = () => {
   const navigate = useNavigate();
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
+ 
+  const currentTime = new Date().getTime();
+
   useEffect(() => {
-    console.log('props', props)
-    if (tokenIsExpired(userInfo.token)) {
-      // navigate("/login");
-      console.log('token', tokenIsExpired(userInfo.token))
+    if (!userInfo ) {
+      navigate("/login");
     }
-  }, [userInfo.token]);
+  }, [navigate,userInfo,currentTime]);
   return (
     <div className="container">
       <div className="row text-center">
